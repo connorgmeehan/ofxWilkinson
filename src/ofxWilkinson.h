@@ -1,11 +1,12 @@
 #pragma once
 
 #include "ofxCv.h"
+#include "ofxGui.h"
 
-#include "FeatureManager.h"
+#include "utils.h"
+
 #include "ThreadedWebcam.h"
-#include "FlowDetector.h"
-#include "FlowTracker.h"
+#include "RoiFinder.h"
 
 class ofxWilkinson {
     public:
@@ -14,20 +15,19 @@ class ofxWilkinson {
         void draw(int x, int y);
 
         void setDimensions(int width, int height);
-        void setPadding(glm::vec2 padding);
-        void setPadding(int x, int y);
 
         void exit();
     protected:
         int _width, _height;
-        glm::vec2 _padding = glm::vec2(-1, -1);
         ThreadedWebcam _cam;
         cv::Mat _camOut;
-        FeatureManager _featureManager;
-        FlowDetector _flow;
-        FlowTracker _tracker;
+
+        RoiFinder _roiFinder;
 
         bool paramsSet();      
 
-        std::string type2str(int type);
+        ofxPanel _gui;
+        ofParameterGroup _globalParams = ofParameterGroup("App Settings");
+        ofParameter<bool> _drawCam;
+        ofParameter<bool> _drawRoi;
 };
