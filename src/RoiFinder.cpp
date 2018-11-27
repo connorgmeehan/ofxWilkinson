@@ -9,7 +9,7 @@ void RoiFinder::setup(int width, int height) {
     _roiParams.add(_bgReset.set("Reset Background", false));
     _roiParams.add(_bgLearningTime.set("Learning Time", LEARNING_TIME, 0.0f, 300.0f));
     _roiParams.add(_bgThresholdCutoff.set("Threshold Cutoff", THRESHOLD_VALUE, 0.0f, 20.0f));
-    _roiParams.add(_threshBlurAmount.set("Threshold Blur", 10, 1, 80));
+    _roiParams.add(_threshBlurAmount.set("Threshold Blur", 32, 1, 80));
 
     _roiParams.add(_contourMinArea.set("Contour Min Area", 1, 0, 100));
     _roiParams.add(_contourMaxArea.set("Contour Max Area", 100, 0, 100));

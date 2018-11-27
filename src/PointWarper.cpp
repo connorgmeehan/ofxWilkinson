@@ -60,6 +60,7 @@ void PointWarper::draw(){
     ofDrawBitmapString("br " + ofToString(_pBottomRight), _pBottomRight);
     ofDrawBitmapString("bl " + ofToString(_pBottomLeft), _pBottomLeft);
 
+    ofDrawRectangle(0, _height, _width, _height);
     for(auto & p : _warpedPoints) {
         ofDrawCircle(p.x, p.y + _height, 3);
     }

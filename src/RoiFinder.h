@@ -6,7 +6,7 @@
 #include "utils.h"
 
 constexpr float LEARNING_TIME = 300.0f;
-constexpr float THRESHOLD_VALUE = 7.0f;
+constexpr float THRESHOLD_VALUE = 8.0f;
 
 class RoiFinder {
     public:

@@ -5,6 +5,8 @@ void ofxWilkinson::setup(){
         return;
     }
 
+    _updateProfiler.setGoal(1.0f / 44.0f);
+
     _cam.setup(_width, _height);
     _camOut = cv::Mat(_width, _height, CV_8UC3);
 
@@ -23,9 +25,16 @@ void ofxWilkinson::setup(){
 
 void ofxWilkinson::update(){
     if(_cam.isFrameNew()){
+        _updateProfiler.start();
+
+        // Get the camera output
         _camOut = ofxCv::toCv(_cam.getPixels());
+        // Run background diff and contours to find regions of interest
         _roiFinder.update(_camOut);
+        // Warp the centers of the regions of interest to the space
         _pointWarper.warpPoints(_roiFinder.getFeatures());
+
+        _updateProfiler.stop();
     }
 }
 
@@ -55,6 +64,8 @@ void ofxWilkinson::draw(int x, int y){
 
         ofPopMatrix();
     ofPopStyle();
+
+    _updateProfiler.draw(x, y-50, _width, 50);
 }
 
 void ofxWilkinson::setDimensions(int width, int height){
