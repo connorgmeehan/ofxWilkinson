@@ -46,10 +46,8 @@ void RoiFinder::update(cv::Mat & mat) {
     }
 }
 
-void RoiFinder::draw(int x, int y) {
+void RoiFinder::draw() {
 
-    ofPushMatrix();
-    ofTranslate(x,y);
         ofEnableBlendMode(OF_BLENDMODE_ADD);
         ofSetColor(255,255,255,50);
 
@@ -63,7 +61,6 @@ void RoiFinder::draw(int x, int y) {
         for(auto & p : _features) {
             ofDrawCircle(p.x, p.y, 2);
         }
-    ofPopMatrix();
 }
 
 std::vector<cv::Point2f> & RoiFinder::getFeatures() {

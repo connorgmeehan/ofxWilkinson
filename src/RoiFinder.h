@@ -12,7 +12,7 @@ class RoiFinder {
     public:
         void setup(int width, int height);
         void update(cv::Mat & mat);
-        void draw(int x, int y);
+        void draw();
 
         ofParameterGroup & getParameters();
         std::vector<cv::Point2f> & getFeatures();
@@ -32,7 +32,7 @@ class RoiFinder {
         ofxCv::ContourFinder _contourFinder;
         std::vector<cv::Point2f> _features;
 
-        ofParameterGroup _roiParams = ofParameterGroup("Roi Settings");
+        ofParameterGroup _roiParams = ofParameterGroup("ROI Settings");
         ofParameter<bool> _bgReset;
         ofParameter<float> _bgLearningTime;
         ofParameter<float> _bgThresholdCutoff;

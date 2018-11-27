@@ -9,19 +9,23 @@ void ofxWilkinson::setup(){
     _camOut = cv::Mat(_width, _height, CV_8UC3);
 
     _roiFinder.setup(_width, _height);
+    _pointWarper.setup(_width, _height);
 
     _gui.setup("Settings");
     _globalParams.add(_drawCam.set("Draw Camera", true));
     _globalParams.add(_drawRoi.set("Draw Region of Interest Detection", true));
     _gui.add(_globalParams);
 
+    // Add parameters for modules
     _gui.add(_roiFinder.getParameters());
+    _gui.add(_pointWarper.getParameters());
 }
 
 void ofxWilkinson::update(){
     if(_cam.isFrameNew()){
         _camOut = ofxCv::toCv(_cam.getPixels());
         _roiFinder.update(_camOut);
+        _pointWarper.warpPoints(_roiFinder.getFeatures());
     }
 }
 
@@ -37,15 +41,19 @@ void ofxWilkinson::draw(int x, int y){
 
     ofPushStyle();
         ofSetColor(ofColor::white);
-        
-        debugString += "_camOut channels size: " + ofToString(_camOut.channels()) + ", _camOut.type(): " + cv::type2str(_camOut.type()) + "\n";
-        ofFloatImage tempCam;
-        tempCam.allocate(_width, _height, OF_IMAGE_GRAYSCALE);
-        ofxCv::toOf(_camOut, tempCam);        
-        _cam.draw(x,y);
+        ofPushMatrix();
+            ofTranslate(x,y);
 
-        _roiFinder.draw(x,y);
+            debugString += "_camOut channels size: " + ofToString(_camOut.channels()) + ", _camOut.type(): " + cv::type2str(_camOut.type()) + "\n";
+            ofFloatImage tempCam;
+            tempCam.allocate(_width, _height, OF_IMAGE_GRAYSCALE);
+            ofxCv::toOf(_camOut, tempCam);        
+            _cam.draw(0,0);
 
+            _roiFinder.draw();
+            _pointWarper.draw();
+
+        ofPopMatrix();
     ofPopStyle();
 }
 

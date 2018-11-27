@@ -7,6 +7,7 @@
 
 #include "ThreadedWebcam.h"
 #include "RoiFinder.h"
+#include "PointWarper.h"
 
 class ofxWilkinson {
     public:
@@ -23,6 +24,7 @@ class ofxWilkinson {
         cv::Mat _camOut;
 
         RoiFinder _roiFinder;
+        PointWarper _pointWarper;
 
         bool paramsSet();      
 
