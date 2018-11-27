@@ -10,8 +10,12 @@ void ofxWilkinson::setup(){
 
     _roiFinder.setup(_width, _height);
 
+    _gui.setup("Settings");
     _globalParams.add(_drawCam.set("Draw Camera", true));
     _globalParams.add(_drawRoi.set("Draw Region of Interest Detection", true));
+    _gui.add(_globalParams);
+
+    _gui.add(_roiFinder.getParameters());
 }
 
 void ofxWilkinson::update(){
