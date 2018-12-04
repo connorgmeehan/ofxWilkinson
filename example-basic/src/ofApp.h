@@ -11,7 +11,7 @@ class ofApp : public ofBaseApp{
 		void update();
 		void draw();
 
-		ofxWilkinson wilkinson;
+		ofxWilkinson<BaseFollower> wilkinson;
 
 		void exit();
 };

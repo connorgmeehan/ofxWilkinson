@@ -5,28 +5,39 @@
 
 #include "utils.h"
 
+#include "Profiler.h"
+
 #include "ThreadedWebcam.h"
 #include "RoiFinder.h"
 #include "PointWarper.h"
-#include "Profiler.h"
+#include "FeatureManager.h"
+#include "BaseFollower.h"
 
+#define ARTNET_MAX_FPS 44
+
+
+template <class UserFollower>
 class ofxWilkinson {
     public:
         void setup();
         void update();
         void draw(int x, int y);
 
-        void setDimensions(int width, int height);
+        void setCameraDimensions(int width, int height);
+        void setOutputDimensions(int width, int height, int strands = -1, int strandWidth = -1);
 
         void exit();
     protected:
-        int _width, _height;
+        int _cameraWidth, _cameraHeight;
+        int _outputWidth, _outputHeight;
+        int _colSkip, _rowSkip;
         ThreadedWebcam _cam;
         cv::Mat _camOut;
 
         Profiler _updateProfiler;
         RoiFinder _roiFinder;
         PointWarper _pointWarper;
+        FeatureManager<UserFollower> _featureManager;
 
         bool paramsSet();      
 
@@ -35,3 +46,7 @@ class ofxWilkinson {
         ofParameter<bool> _drawCam;
         ofParameter<bool> _drawRoi;
 };
+
+#include "ofxWilkinson.hpp"
+
+typedef ofxWilkinson<BaseFollower> ofxWilkinsonBasic;

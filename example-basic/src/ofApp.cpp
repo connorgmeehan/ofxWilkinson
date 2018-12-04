@@ -2,7 +2,8 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-  wilkinson.setDimensions(640, 360);
+  wilkinson.setCameraDimensions(640, 360);
+  wilkinson.setOutputDimensions(64, 50, 16, 50);
   wilkinson.setup();
 }
 
@@ -14,7 +15,7 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
   ofBackground(12);
-  wilkinson.draw(100, 100);
+  wilkinson.draw(20, 20);
 }
 
 void ofApp::exit(){

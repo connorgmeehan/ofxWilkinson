@@ -15,6 +15,8 @@ class PointWarper {
         void onTopRight(glm::vec2 & val);
         void onBottomRight(glm::vec2 & val);
         void onBottomLeft(glm::vec2 & val);
+
+        std::vector<cv::Point2f> & getWarped();
     private:
         int _width, _height;
         std::vector<cv::Point2f> _warpedPoints;

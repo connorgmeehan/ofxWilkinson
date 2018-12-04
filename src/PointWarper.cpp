@@ -70,6 +70,10 @@ ofParameterGroup & PointWarper::getParameters() {
     return _pointWarpParams;
 }
 
+std::vector<cv::Point2f> & PointWarper::getWarped() {
+    return _warpedPoints;
+}
+
 void PointWarper::onTopLeft(glm::vec2 & val){
     _srcPoints[0] = cv::Point2f(val.x, val.y);
 }
