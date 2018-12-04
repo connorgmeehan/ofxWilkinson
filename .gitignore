@@ -1,0 +1,12 @@
+
+\.idea/
+
+\.vscode/
+
+example-wilkinson/bin/
+
+example-basic/bin/
+
+example-basic/obj/
+
+example-wilkinson/obj/
