@@ -3,10 +3,7 @@
 
 \.vscode/
 
-example-wilkinson/bin/
-
-example-basic/bin/
-
-example-basic/obj/
-
-example-wilkinson/obj/
+*/bin/
+*/obj/
+*/cmake-build-debug/
+*/compile_commands.json
