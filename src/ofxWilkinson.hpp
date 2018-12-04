@@ -111,3 +111,7 @@ void ofxWilkinson<UserFollower>::exit(){
     _cam.stopThread();
 }
 
+template <class UserFollower>
+std::vector<UserFollower> & ofxWilkinson<UserFollower>::getFollowers(){
+    return _featureManager.getFollowers();
+}

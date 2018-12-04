@@ -11,6 +11,7 @@ class FeatureManager {
         void draw(int width, int height);
 
         ofParameterGroup & getParameters();
+        std::vector<UserFollower> & getFollowers();
 
         void onTrackingPersistance(float & val);
         void onTrackingMaxDistance(float & val);

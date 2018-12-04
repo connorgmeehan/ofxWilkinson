@@ -37,6 +37,11 @@ ofParameterGroup & FeatureManager<UserFollower>::getParameters() {
 }
 
 template <class UserFollower>
+std::vector<UserFollower> & FeatureManager<UserFollower>::getFollowers() {
+    return _tracker.getFollowers();
+}
+
+template <class UserFollower>
 void FeatureManager<UserFollower>::onTrackingPersistance(float & val){
     _tracker.setPersistance(val);
 }

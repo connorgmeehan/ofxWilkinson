@@ -27,6 +27,8 @@ class ofxWilkinson {
         void setOutputDimensions(int width, int height, int strands = -1, int strandWidth = -1);
 
         void exit();
+
+        std::vector<UserFollower> & getFollowers();
     protected:
         int _cameraWidth, _cameraHeight;
         int _outputWidth, _outputHeight;
