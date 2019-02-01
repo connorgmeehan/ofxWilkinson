@@ -11,7 +11,10 @@
 #include "RoiFinder.h"
 #include "PointWarper.h"
 #include "FeatureManager.h"
+#include "SceneBuilder.h"
+
 #include "BaseFollower.h"
+
 
 #define ARTNET_MAX_FPS 44
 
@@ -27,6 +30,9 @@ class ofxWilkinson {
         void setCameraDimensions(int width, int height);
         void setOutputDimensions(int cols, int rows, int width = -1, int height = -1);
 
+        void bindFrame();
+        void unbindFrame();
+
         void exit();
 
         std::vector<UserFollower> & getFollowers();
@@ -41,7 +47,7 @@ class ofxWilkinson {
         RoiFinder _roiFinder;
         PointWarper _pointWarper;
         FeatureManager<UserFollower> _featureManager;
-
+        SceneBuilder _sceneBuilder;
 
         bool paramsSet();      
 

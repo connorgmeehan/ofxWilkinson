@@ -115,6 +115,16 @@ void ofxWilkinson<UserFollower>::setOutputDimensions(int cols, int rows, int wid
 }
 
 template <class UserFollower>
+void ofxWilkinson<UserFollower>::bindFrame(){
+    _sceneBuilder.bindFrame();
+}
+
+template <class UserFollower>
+void ofxWilkinson<UserFollower>::unbindFrame(){
+    _sceneBuilder.unbindFrame();
+}
+
+template <class UserFollower>
 bool ofxWilkinson<UserFollower>::paramsSet(){
     ofLog() << "ofxWilkinson checking parameters!";
     ofLog() << "----------------------------------";
