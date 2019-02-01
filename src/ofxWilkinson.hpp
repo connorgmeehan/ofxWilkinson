@@ -1,5 +1,16 @@
 
 template <class UserFollower>
+ofxWilkinson<UserFollower>::ofxWilkinson() :
+    _cameraWidth(0),
+    _cameraHeight(0),
+    _outputWidth(0),
+    _outputHeight(0),
+    _outputCols(0),
+    _outputRows(0) {
+    
+}
+
+template <class UserFollower>
 void ofxWilkinson<UserFollower>::setup(){
     if(!paramsSet()){
         return;
@@ -7,9 +18,8 @@ void ofxWilkinson<UserFollower>::setup(){
 
     ofSetFrameRate(ARTNET_MAX_FPS);
 
-    // UserFollower::setScale(glm::vec2(_cameraWidth, _cameraHeight), glm::vec2(_outputWidth, _outputHeight));
-    UserFollower::setScale(glm::vec2(_cameraWidth, _cameraHeight), glm::vec2(_cameraWidth, _cameraHeight));
 
+    _featureManager.setOutputScale( glm::vec2(_cameraWidth, _cameraHeight), glm::vec2(_outputWidth, _outputHeight));
     _updateProfiler.setGoal(1.0f / (float) ARTNET_MAX_FPS);
 
     _cam.setup(_cameraWidth, _cameraHeight);
@@ -37,13 +47,16 @@ void ofxWilkinson<UserFollower>::update(){
 
         // Get the camera output
         _camOut = ofxCv::toCv(_cam.getPixels());
+
         // Run background diff and contours to find regions of interest
         _roiFinder.update(_camOut);
-        // Warp the centers of the regions of interest to the space
-        _pointWarper.warpPoints(_roiFinder.getFeatures());
-        // 
-        _featureManager.update(_pointWarper.getWarped());
 
+        // Warp the centers of the regions of interest to the output dimensions
+        _pointWarper.warpPoints(_roiFinder.getFeatures());
+
+        // Make feature manager track newly warped features 
+        _featureManager.update(_pointWarper.getWarped());
+        
         _updateProfiler.stop();
     }
 }
@@ -87,12 +100,18 @@ void ofxWilkinson<UserFollower>::setCameraDimensions(int width, int height){
 }
 
 template <class UserFollower>
-void ofxWilkinson<UserFollower>::setOutputDimensions(int width, int height, int strands, int strandWidth){
+void ofxWilkinson<UserFollower>::setOutputDimensions(int cols, int rows, int width, int height){
+
+    if(width == -1 && height == -1) {
+        width = cols;
+        height = rows;
+    }
+
     _outputWidth = width;
     _outputHeight = height;
 
-    _rowSkip = (strands != -1 ? _outputHeight / strands : 0);
-    _colSkip = (strandWidth != -1 ? _outputWidth / strandWidth : 0);
+    _outputCols = cols;
+    _outputRows = rows;
 }
 
 template <class UserFollower>

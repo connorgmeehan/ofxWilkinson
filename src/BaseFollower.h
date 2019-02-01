@@ -15,12 +15,10 @@ class BaseFollower : public PointFollower {
 
         float startedDying;
 
-        static glm::vec2 _scale;
         static float _predictionDistance;
         static float _predictionSmoothingAlpha;
         static float _positionSmoothingAlpha;
     public:
-        static void setScale( glm::vec2 inQuad, glm::vec2 outQuad);
         static void setPredictionDistance(float delta);
         static void setPredictionSmoothingAlpha(float alpha);
         static void setSmoothingAlpha(float alpha);

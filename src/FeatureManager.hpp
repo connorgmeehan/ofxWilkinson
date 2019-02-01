@@ -17,6 +17,9 @@ void FeatureManager<UserFollower>::setup() {
 
 template <class UserFollower>
 void FeatureManager<UserFollower>::update(std::vector<cv::Point2f> & features) {
+
+    scaleFeaturestoOutput(features);
+
     _tracker.track(features);
 }
 
@@ -64,4 +67,18 @@ void FeatureManager<UserFollower>::onFeaturePredictionSmoothAmount(float & val){
 template <class UserFollower>
 void FeatureManager<UserFollower>::onFeatureSmoothAmount(float & val){
     UserFollower::setSmoothingAlpha(1.0f - val);
+}
+
+template <class UserFollower>
+void FeatureManager<UserFollower>::setOutputScale(glm::vec2 sourceDimensions, glm::vec2 outputDimensions) {
+    glm::vec2 glmOutputScale = outputDimensions / sourceDimensions;
+    _featurePositionScale = cv::Point_<float>(glmOutputScale.x, glmOutputScale.y);
+}
+
+template <class UserFollower>
+void FeatureManager<UserFollower>::scaleFeaturestoOutput(std::vector<cv::Point2f> & features) {
+    for ( auto & f : features ) {
+        f.x *= _featurePositionScale.x; 
+        f.y *= _featurePositionScale.y; 
+    }
 }

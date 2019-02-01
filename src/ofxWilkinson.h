@@ -19,12 +19,13 @@
 template <class UserFollower>
 class ofxWilkinson {
     public:
+        ofxWilkinson();
         void setup();
         void update();
         void draw(int x, int y);
 
         void setCameraDimensions(int width, int height);
-        void setOutputDimensions(int width, int height, int strands = -1, int strandWidth = -1);
+        void setOutputDimensions(int cols, int rows, int width = -1, int height = -1);
 
         void exit();
 
@@ -32,7 +33,7 @@ class ofxWilkinson {
     protected:
         int _cameraWidth, _cameraHeight;
         int _outputWidth, _outputHeight;
-        int _colSkip, _rowSkip;
+        int _outputCols, _outputRows;
         ThreadedWebcam _cam;
         cv::Mat _camOut;
 
@@ -40,6 +41,7 @@ class ofxWilkinson {
         RoiFinder _roiFinder;
         PointWarper _pointWarper;
         FeatureManager<UserFollower> _featureManager;
+
 
         bool paramsSet();      
 

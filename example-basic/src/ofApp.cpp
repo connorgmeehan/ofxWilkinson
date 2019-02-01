@@ -3,7 +3,7 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
   wilkinson.setCameraDimensions(640, 360);
-  wilkinson.setOutputDimensions(64, 50, 16, 50);
+  wilkinson.setOutputDimensions(16, 50, 640, 360);
   wilkinson.setup();
 }
 
