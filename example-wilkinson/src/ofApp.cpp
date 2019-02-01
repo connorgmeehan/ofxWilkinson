@@ -4,7 +4,7 @@
 void ofApp::setup(){
 
   PresenceFollower::setBlobSettings(10, 32);
-  PresenceFollower::setColorRange(20, 180, false);
+  PresenceFollower::setColorRange(100, 200, false);
   PresenceFollower::generateBlobTexture();
 
   wilkinson.setCameraDimensions(640, 360);
@@ -21,13 +21,6 @@ void ofApp::update(){
 void ofApp::draw(){
   ofBackground(12);
   wilkinson.draw(20, 20);
-
-  ofPushMatrix();
-    ofTranslate(640,20);
-    for(auto & f : wilkinson.getFollowers()) {
-      f.draw();
-    }
-  ofPopMatrix();
 }
 
 void ofApp::exit(){
