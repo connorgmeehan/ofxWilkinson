@@ -74,8 +74,10 @@ void ofxWilkinson<UserFollower>::draw(int x, int y){
 
     ofPushStyle();
         ofSetColor(ofColor::white);
+        ofNoFill();
         ofPushMatrix();
             ofTranslate(x,y);
+            ofDrawRectangle(0, _cameraHeight, _outputWidth, _outputHeight);
 
             debugString += "_camOut channels size: " + ofToString(_camOut.channels()) + ", _camOut.type(): " + cv::type2str(_camOut.type()) + "\n";
             ofFloatImage tempCam;
@@ -91,6 +93,13 @@ void ofxWilkinson<UserFollower>::draw(int x, int y){
     ofPopStyle();
 
     _updateProfiler.draw(x, y-50, _cameraWidth, 50);
+}
+
+template <class UserFollower>
+void ofxWilkinson<UserFollower>::drawFollowers(){
+    for( auto & f : _featureManager.getFollowers()) {
+        f.draw();
+    }
 }
 
 template <class UserFollower>

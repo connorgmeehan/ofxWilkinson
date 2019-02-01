@@ -3,6 +3,7 @@
 #include "ofMain.h"
 
 #include "ofxWilkinson.h"
+#include "PresenceFollower.h"
 
 class ofApp : public ofBaseApp{
 
@@ -11,7 +12,7 @@ class ofApp : public ofBaseApp{
 		void update();
 		void draw();
 
-		ofxWilkinson<BaseFollower> wilkinson;
+		ofxWilkinson<PresenceFollower> wilkinson;
 
 		void exit();
 };

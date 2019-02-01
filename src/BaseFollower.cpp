@@ -21,7 +21,7 @@ void BaseFollower::setSmoothingAlpha(float alpha) {
 void BaseFollower::setup(const cv::Point2f & track) {
     pos = smoothed = lastSmoothed = cur = ofxCv::toOf(track);
 
-	_setup(track);
+	_setup(pos);
 }
 
 void BaseFollower::update(const cv::Point2f & track) {
@@ -33,7 +33,7 @@ void BaseFollower::update(const cv::Point2f & track) {
 
 	pos = smoothed + velocity * _predictionDistance;
 
-	_update(track);
+	_update(pos);
 }
 
 void BaseFollower::kill() {

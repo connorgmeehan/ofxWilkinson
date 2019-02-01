@@ -32,8 +32,8 @@ class BaseFollower : public PointFollower {
         void draw();
         void kill();
 
-        virtual void _setup(const cv::Point2f & track) {}
-        virtual void _update(const cv::Point2f & track) {}
+        virtual void _setup(const glm::vec2 & position) {}
+        virtual void _update(const glm::vec2 & position) {}
         virtual void _draw() {}
         virtual void _kill() {
             float curTime = ofGetElapsedTimef();
