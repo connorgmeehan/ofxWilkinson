@@ -88,6 +88,11 @@ void ofxWilkinson<UserFollower>::draw(int x, int y){
             _roiFinder.draw();
             _pointWarper.draw();
             _featureManager.draw(_cameraWidth, _cameraHeight);
+            
+            ofTranslate(_outputWidth, _cameraHeight);
+            for(auto & f : _featureManager.getFollowers()) {
+                f.draw();
+            }
 
         ofPopMatrix();
     ofPopStyle();
