@@ -71,6 +71,11 @@ ofParameterGroup & RoiFinder::getParameters(){
     return _roiParams;
 }
 
+void RoiFinder::reset() {
+    _bgReset = false;
+    _background.reset();
+}
+
 void RoiFinder::onBgReset(bool & val){
     if(_bgReset){
         _bgReset = false;

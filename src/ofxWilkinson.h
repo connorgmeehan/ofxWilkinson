@@ -33,11 +33,13 @@ class ofxWilkinson {
 
         void bindFrame();
         void unbindFrame();
+        ofFbo & getOutputFbo();
 
         void exit();
 
         std::vector<UserFollower> & getFollowers();
     protected:
+        bool _isCameraInit = false;
         int _cameraWidth, _cameraHeight;
         int _outputWidth, _outputHeight;
         int _outputCols, _outputRows;

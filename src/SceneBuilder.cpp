@@ -7,11 +7,15 @@ void SceneBuilder::setup(int width, int height){
 }
 
 void SceneBuilder::bindFrame(){
-    _frame.clear();
     _frame.begin();
+    ofClear(0);
 }
 
 void SceneBuilder::unbindFrame(){
     _frame.end();
     _ola.sendFrame(_frame);
+}
+
+ofFbo & SceneBuilder::getOutputFbo() {
+    return _frame;
 }

@@ -18,8 +18,6 @@ void ofxWilkinson<UserFollower>::setup(){
 
     ofSetFrameRate(ARTNET_MAX_FPS);
 
-
-    _featureManager.setOutputScale( glm::vec2(_cameraWidth, _cameraHeight), glm::vec2(_outputWidth, _outputHeight));
     _updateProfiler.setGoal(1.0f / (float) ARTNET_MAX_FPS);
 
     _cam.setup(_cameraWidth, _cameraHeight);
@@ -27,7 +25,11 @@ void ofxWilkinson<UserFollower>::setup(){
 
     _roiFinder.setup(_cameraWidth, _cameraHeight);
     _pointWarper.setup(_cameraWidth, _cameraHeight);
+
+    _featureManager.setOutputScale( glm::vec2(_cameraWidth, _cameraHeight), glm::vec2(_outputWidth, _outputHeight));
     _featureManager.setup();
+
+    _sceneBuilder.setup(_outputWidth, _outputHeight);
 
     _gui.setup("Settings", "backend_settings.xml",  ofGetWidth() - 200, 15);
     _globalParams.add(_drawCam.set("Draw Camera", true));
@@ -47,6 +49,11 @@ void ofxWilkinson<UserFollower>::update(){
 
         // Get the camera output
         _camOut = ofxCv::toCv(_cam.getPixels());
+
+        if(_isCameraInit == false && ofGetElapsedTimef() > 1.0f) {
+            _roiFinder.reset();
+            _isCameraInit = true;
+        }    
 
         // Run background diff and contours to find regions of interest
         _roiFinder.update(_camOut);
@@ -136,6 +143,11 @@ void ofxWilkinson<UserFollower>::bindFrame(){
 template <class UserFollower>
 void ofxWilkinson<UserFollower>::unbindFrame(){
     _sceneBuilder.unbindFrame();
+}
+
+template <class UserFollower>
+ofFbo & ofxWilkinson<UserFollower>::getOutputFbo(){
+    _sceneBuilder.getOutputFbo();
 }
 
 template <class UserFollower>

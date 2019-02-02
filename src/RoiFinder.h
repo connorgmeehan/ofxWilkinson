@@ -17,6 +17,8 @@ class RoiFinder {
         ofParameterGroup & getParameters();
         std::vector<cv::Point2f> & getFeatures();
 
+        void reset();
+
         void onBgReset(bool & val);
         void onLearningTime(float & val);
         void onBgThreshold(float & val);

@@ -21,6 +21,17 @@ void ofApp::update(){
 void ofApp::draw(){
   ofBackground(12);
   wilkinson.draw(20, 20);
+
+  wilkinson.bindFrame();
+    // drawbackground
+    ofEnableBlendMode(OF_BLENDMODE_DISABLED);
+
+    // Draw Foreground
+		ofEnableBlendMode(OF_BLENDMODE_ADD);
+    wilkinson.drawFollowers();
+  wilkinson.unbindFrame();
+
+  // wilkinson.getOutputFbo().draw(0,0);
 }
 
 void ofApp::exit(){

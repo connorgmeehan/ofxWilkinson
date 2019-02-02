@@ -12,6 +12,7 @@ class SceneBuilder {
         void setup(int width, int height);
         void bindFrame();
         void unbindFrame();
+        ofFbo & getOutputFbo();
 
         void sendToArtnet();
     private:
