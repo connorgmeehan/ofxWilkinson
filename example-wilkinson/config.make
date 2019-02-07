@@ -76,8 +76,12 @@
 # add a runtime path to search for those shared libraries, since they aren't 
 # incorporated directly into the final executable application binary.
 ################################################################################
-# PROJECT_LDFLAGS=-Wl,-rpath=./libs,-pthread -I/usr/local/include -L/usr/local/lib -lola -lolacommon -lprotobuf -pthread -lpthread
-PROJECT_LDFLAGS=-Wl,-rpath=./libs,-pthread -I/usr/local/include -L/usr/local/lib -lprotobuf -pthread -lpthread
+
+# IF you have Open Lighting Architecture installed, uncomment this
+PROJECT_LDFLAGS=-Wl,-rpath=./libs,-pthread -I/usr/local/include -L/usr/local/lib -lola -lolacommon -lprotobuf -pthread -lpthread
+
+# IF you dont have Open Lighting Architecture, uncomment this
+# PROJECT_LDFLAGS=-Wl,-rpath=./libs,-pthread -I/usr/local/include -L/usr/local/lib -lprotobuf -pthread -lpthread
 
 ################################################################################
 # PROJECT DEFINES
