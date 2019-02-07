@@ -16,6 +16,6 @@ void SceneBuilder::unbindFrame(){
     _ola.sendFrame(_frame);
 }
 
-ofFbo & SceneBuilder::getOutputFbo() {
-    return _frame;
+void SceneBuilder::draw() {
+    _frame.draw(0,0);
 }

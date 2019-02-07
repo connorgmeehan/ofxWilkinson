@@ -2,8 +2,11 @@
 
 #include "ofMain.h"
 
+#define OLA_INSTALLED
+
 #include "ofxWilkinson.h"
 #include "PresenceFollower.h"
+
 
 class ofApp : public ofBaseApp{
 

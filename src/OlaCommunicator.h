@@ -1,9 +1,10 @@
 #include "ofMain.h"
 
-#ifdef INCLUDE_OLA_CLIENT_OLACLIENT_H_
+#ifdef OLA_INSTALLED
 #include <ola/DmxBuffer.h>
 #include <ola/io/SelectServer.h>
 #include <ola/Logging.h>
+#include <ola/client/OlaClient.h>
 #include <ola/client/ClientWrapper.h>
 #include <ola/Callback.h>
 

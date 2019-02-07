@@ -33,8 +33,7 @@ class ofxWilkinson {
 
         void bindFrame();
         void unbindFrame();
-        ofFbo & getOutputFbo();
-
+        
         void exit();
 
         std::vector<UserFollower> & getFollowers();

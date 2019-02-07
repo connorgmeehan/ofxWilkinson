@@ -101,6 +101,10 @@ void ofxWilkinson<UserFollower>::draw(int x, int y){
                 f.draw();
             }
 
+            ofTranslate(_outputWidth, 0);
+            ofSetColor(ofColor::white);
+            _sceneBuilder.draw();
+
         ofPopMatrix();
     ofPopStyle();
 
@@ -143,11 +147,6 @@ void ofxWilkinson<UserFollower>::bindFrame(){
 template <class UserFollower>
 void ofxWilkinson<UserFollower>::unbindFrame(){
     _sceneBuilder.unbindFrame();
-}
-
-template <class UserFollower>
-ofFbo & ofxWilkinson<UserFollower>::getOutputFbo(){
-    _sceneBuilder.getOutputFbo();
 }
 
 template <class UserFollower>

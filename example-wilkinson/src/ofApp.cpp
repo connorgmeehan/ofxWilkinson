@@ -20,7 +20,6 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
   ofBackground(12);
-  wilkinson.draw(20, 20);
 
   wilkinson.bindFrame();
     // drawbackground
@@ -30,8 +29,8 @@ void ofApp::draw(){
 		ofEnableBlendMode(OF_BLENDMODE_ADD);
     wilkinson.drawFollowers();
   wilkinson.unbindFrame();
-
-  // wilkinson.getOutputFbo().draw(0,0);
+  
+  wilkinson.draw(20, 20);
 }
 
 void ofApp::exit(){
