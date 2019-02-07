@@ -169,3 +169,8 @@ template <class UserFollower>
 std::vector<UserFollower> & ofxWilkinson<UserFollower>::getFollowers(){
     return _featureManager.getFollowers();
 }
+
+template<class UserFollower>
+size_t ofxWilkinson<UserFollower>::getSize() {
+    return _featureManager.getFollowers.size();
+}

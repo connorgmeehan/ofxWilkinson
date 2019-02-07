@@ -33,10 +33,11 @@ class ofxWilkinson {
 
         void bindFrame();
         void unbindFrame();
-        
+
         void exit();
 
         std::vector<UserFollower> & getFollowers();
+        size_t getSize();
     protected:
         bool _isCameraInit = false;
         int _cameraWidth, _cameraHeight;
