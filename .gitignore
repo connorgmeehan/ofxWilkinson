@@ -3,7 +3,8 @@
 
 \.vscode/
 
-*/bin/
+*/bin/example-*
+*/bin/libfmodex.so
 */obj/
 */cmake-build-debug/
 */compile_commands.json
