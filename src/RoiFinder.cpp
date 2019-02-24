@@ -15,7 +15,7 @@ void RoiFinder::setup(int width, int height) {
     _roiParams.add(_contourMaxArea.set("Contour Max Area", 100, 0, 100));
 
     _roiParams.add(_trackerPersistance.set("Tracker Persistance", 15, 5, 30));
-    _roiParams.add(_trackerMaxDistance.set("Tracker Max Distance", 30, 5, 50));
+    _roiParams.add(_trackerMaxDistance.set("Tracker Max Distance", 2, 0, 10));
 
     _bgReset.addListener(this, &RoiFinder::onBgReset);
     _bgLearningTime.addListener(this, &RoiFinder::onLearningTime);

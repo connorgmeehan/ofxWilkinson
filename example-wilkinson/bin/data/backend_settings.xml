@@ -17,12 +17,12 @@
 	<Point_Warp_Settings>
 		<Top_Left>0, 0</Top_Left>
 		<Top_Right>640, 0</Top_Right>
-		<Bottom_Right>640, 0</Bottom_Right>
-		<Bottom_Left>0, 0</Bottom_Left>
+		<Bottom_Right>640, 360</Bottom_Right>
+		<Bottom_Left>0, 360</Bottom_Left>
 	</Point_Warp_Settings>
 	<Feature_Manager_Settings>
 		<Tracking_Persistance>15</Tracking_Persistance>
-		<Tracking_Max_Distance>6.78571</Tracking_Max_Distance>
+		<Tracking_Max_Distance>2</Tracking_Max_Distance>
 		<Predict_Ahead_Value>3</Predict_Ahead_Value>
 		<Predict_Ahead_Smoothing>0.0204082</Predict_Ahead_Smoothing>
 		<Position_Smoothing_Amount>0.959184</Position_Smoothing_Amount>
