@@ -2,7 +2,6 @@
 
 #include "ofMain.h"
 #include "ofxCv.h"
-#include <boost/circular_buffer.hpp>
 using namespace ofxCv;
 
 constexpr float DYING_TIME = 1.0f;
