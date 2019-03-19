@@ -6,7 +6,7 @@ void ThreadedWebcam::setup(int width, int height){
 
     _cam.listDevices();
     _cam.setVerbose(true);
-    _cam.setDesiredFrameRate(30); 
+    _cam.setDesiredFrameRate(ARTNET_MAX_FPS); 
     ofLog() << "\tCam Pixel format: " << _cam.getPixelFormat();
 
     _camOut.allocate(width, height, OF_IMAGE_COLOR);
