@@ -18,7 +18,6 @@
 
 #define ARTNET_MAX_FPS 44
 
-
 template <class UserFollower>
 class ofxWilkinson {
     public:

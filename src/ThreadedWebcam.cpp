@@ -1,5 +1,7 @@
 #include "./ThreadedWebcam.h"
 
+#define ARTNET_MAX_FPS 44
+
 void ThreadedWebcam::setup(int width, int height){
     ofLog() << "ThreadedWebcam::setup(width:"<<width<<", height:"<<height<<"){..}";
     _cam.setup(width, height);

@@ -4,8 +4,15 @@
 //========================================================================
 int main( ){
 
-	ofGLWindowSettings settings;
-	settings.setGLVersion(3,2);
+	// #ifdef __arm__
+	#ifdef TARGET_LINUX_ARM 
+		ofGLESWindowSettings settings;
+		settings.glesVersion = 2;
+	#else
+		ofGLWindowSettings settings;
+		settings.setGLVersion(3,2);
+	#endif
+
 	settings.setSize(1024,768);
 	ofCreateWindow(settings);
     
