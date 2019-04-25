@@ -20,7 +20,12 @@ void ofApp::setup(){
   followerFbo.end();
 
   // Setup shader
-  backgroundShader.load("background");
+  #ifdef TARGET_LINUX_ARM 
+    backgroundShader.load("background_gles");
+	#else
+    backgroundShader.load("background");
+	#endif
+
 }
 
 //--------------------------------------------------------------
