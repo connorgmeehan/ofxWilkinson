@@ -34,6 +34,7 @@ void ofxWilkinson<UserFollower>::setup(){
 
     _gui.setup("Settings", "ofxWilkinson.json",  ofGetWidth() - 200, 15);
     _globalParams.add(_hideAll.set("hide_all", false));
+    _globalParams.add(_drawOscControls.set("draw_osc", true));
     _globalParams.add(_drawGui.set("draw_gui", true));
     _globalParams.add(_drawCam.set("draw_camera", true));
     _globalParams.add(_drawRoi.set("draw_roi", true));
@@ -109,6 +110,9 @@ void ofxWilkinson<UserFollower>::draw(int x, int y){
                     tempCam.allocate(_cameraWidth, _cameraHeight, OF_IMAGE_GRAYSCALE);
                     ofxCv::toOf(_camOut, tempCam);        
                     _cam.draw(0,0);
+                }
+                if(_drawOscControls) {
+                    _oscController.draw(_cameraWidth, 0);
                 }
 
                 if(_drawRoi) { _roiFinder.draw(); }

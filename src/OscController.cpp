@@ -85,6 +85,23 @@ void OscController::update() {
   }
 }
 
+void OscController::draw(int x, int y) {
+  std::string controlsString = "OscController params: \n";
+
+  for(Command & command : _controls) {
+    std::vector<std::basic_string<char>> hierarchy = command.pParameter->getGroupHierarchyNames();
+    hierarchy.erase(hierarchy.begin());
+
+    std::string value = command.pParameter->toString();
+    for(auto & guiNodeName : hierarchy) {
+      controlsString += guiNodeName += "/";
+    }
+    controlsString += ": " + value + "\n";
+  }
+
+  ofDrawBitmapString(controlsString, x, y);
+}
+
 void OscController::printCommands() {
 
   auto typePrinter = [](CommandType type) -> char* {
