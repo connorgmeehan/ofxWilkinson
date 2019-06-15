@@ -33,8 +33,14 @@ void ofxWilkinson<UserFollower>::setup(){
     _sceneBuilder.setup(_outputWidth, _outputHeight);
 
     _gui.setup("Settings", "ofxWilkinson.json",  ofGetWidth() - 200, 15);
+    _globalParams.add(_hideAll.set("hide_all", false));
+    _globalParams.add(_drawGui.set("draw_gui", true));
     _globalParams.add(_drawCam.set("draw_camera", true));
     _globalParams.add(_drawRoi.set("draw_roi", true));
+    _globalParams.add(_drawPointWarper.set("draw_pointwarper", true));
+    _globalParams.add(_drawFeatureManager.set("draw_featuremanager", true));
+    _globalParams.add(_drawFollowers.set("draw_followers", true));
+    _globalParams.add(_drawSceneBuilder.set("draw_scenebuilder", true));
     _gui.add(_globalParams);
 
     // Add parameters for modules
@@ -79,45 +85,52 @@ void ofxWilkinson<UserFollower>::update(){
 
 template <class UserFollower>
 void ofxWilkinson<UserFollower>::draw(int x, int y){
+    if(!_hideAll) {
+        ofEnableBlendMode(OF_BLENDMODE_DISABLED);
+        
+        if(_drawGui) {
+            _gui.draw();
+        }
 
-    ofEnableBlendMode(OF_BLENDMODE_DISABLED);
+        std::string debugString = "";
+        debugString += "Do not run in production!  It costs too much.  [" + ofToString(ofGetFrameRate(),2)+"fps]\n";
+        debugString += "ofxWilkinson::draw(x:"+ofToString(x)+", y:"+ofToString(y)+")\n";
 
-    _gui.draw();
-
-    std::string debugString = "";
-    debugString += "Do not run in production!  It costs too much.  [" + ofToString(ofGetFrameRate(),2)+"fps]\n";
-    debugString += "ofxWilkinson::draw(x:"+ofToString(x)+", y:"+ofToString(y)+")\n";
-
-    ofPushStyle();
-        ofSetColor(ofColor::white);
-        ofNoFill();
-        ofPushMatrix();
-            ofTranslate(x,y);
-            ofDrawRectangle(0, _cameraHeight, _outputWidth, _outputHeight);
-
-            debugString += "_camOut channels size: " + ofToString(_camOut.channels()) + ", _camOut.type(): " + cv::type2str(_camOut.type()) + "\n";
-            ofFloatImage tempCam;
-            tempCam.allocate(_cameraWidth, _cameraHeight, OF_IMAGE_GRAYSCALE);
-            ofxCv::toOf(_camOut, tempCam);        
-            _cam.draw(0,0);
-
-            _roiFinder.draw();
-            _pointWarper.draw();
-            _featureManager.draw(_cameraWidth, _cameraHeight);
-            
-            ofTranslate(_outputWidth, _cameraHeight);
-            for(auto & f : _featureManager.getFollowers()) {
-                f.draw();
-            }
-
-            ofTranslate(_outputWidth, 0);
+        ofPushStyle();
             ofSetColor(ofColor::white);
-            _sceneBuilder.draw();
+            ofNoFill();
+            ofPushMatrix();
+                ofTranslate(x,y);
+                ofDrawRectangle(0, _cameraHeight, _outputWidth, _outputHeight);
 
-        ofPopMatrix();
-    ofPopStyle();
+                if(_drawCam) {
+                    debugString += "_camOut channels size: " + ofToString(_camOut.channels()) + ", _camOut.type(): " + cv::type2str(_camOut.type()) + "\n";
+                    ofFloatImage tempCam;
+                    tempCam.allocate(_cameraWidth, _cameraHeight, OF_IMAGE_GRAYSCALE);
+                    ofxCv::toOf(_camOut, tempCam);        
+                    _cam.draw(0,0);
+                }
 
-    _updateProfiler.draw(x, y-50, _cameraWidth, 50);
+                if(_drawRoi) { _roiFinder.draw(); }
+                if(_drawPointWarper) { _pointWarper.draw(); }
+                if(_drawFeatureManager) {_featureManager.draw(_cameraWidth, _cameraHeight); }
+                if(_drawFollowers) {
+                    ofTranslate(_outputWidth, _cameraHeight);
+                    for(auto & f : _featureManager.getFollowers()) {
+                        f.draw();
+                    }
+                }
+                if(_drawSceneBuilder) {
+                    ofTranslate(_outputWidth, 0);
+                    ofSetColor(ofColor::white);
+                    _sceneBuilder.draw();
+                }
+
+            ofPopMatrix();
+        ofPopStyle();
+
+        _updateProfiler.draw(x, y-50, _cameraWidth, 50);
+    }
 }
 
 template <class UserFollower>

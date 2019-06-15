@@ -57,8 +57,14 @@ class ofxWilkinson {
 
         ofxPanel _gui;
         ofParameterGroup _globalParams = ofParameterGroup("general");
+        ofParameter<bool> _hideAll;
+        ofParameter<bool> _drawGui;
         ofParameter<bool> _drawCam;
         ofParameter<bool> _drawRoi;
+        ofParameter<bool> _drawPointWarper;
+        ofParameter<bool> _drawFeatureManager;
+        ofParameter<bool> _drawFollowers;
+        ofParameter<bool> _drawSceneBuilder;
         OscController _oscController;
 };
 
