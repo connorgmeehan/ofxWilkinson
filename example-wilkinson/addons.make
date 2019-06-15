@@ -2,3 +2,4 @@ ofxCv
 ofxOpenCv
 ofxWilkinson
 ofxGui
+ofxOsc
