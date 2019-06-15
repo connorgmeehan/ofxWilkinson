@@ -27,7 +27,7 @@ class FeatureManager {
         void scaleFeaturestoOutput(std::vector<cv::Point2f> & features);
         cv::Point_<float> _featurePositionScale;
 
-        ofParameterGroup _featureManagerParams = ofParameterGroup("Feature Manager Settings");
+        ofParameterGroup _featureManagerParams = ofParameterGroup("feature_manager");
         ofParameter<float> _trackingPersistance;
         ofParameter<float> _trackingMaxDistance;
         ofParameter<float> _featurePredictionDistance;

@@ -1,3 +1,4 @@
+#include "ofxWilkinson.h"
 
 template <class UserFollower>
 ofxWilkinson<UserFollower>::ofxWilkinson() :
@@ -32,18 +33,24 @@ void ofxWilkinson<UserFollower>::setup(){
     _sceneBuilder.setup(_outputWidth, _outputHeight);
 
     _gui.setup("Settings", "backend_settings.xml",  ofGetWidth() - 200, 15);
-    _globalParams.add(_drawCam.set("Draw Camera", true));
-    _globalParams.add(_drawRoi.set("Draw Region of Interest Detection", true));
+    _globalParams.add(_drawCam.set("draw_camera", true));
+    _globalParams.add(_drawRoi.set("draw_roi", true));
     _gui.add(_globalParams);
 
     // Add parameters for modules
     _gui.add(_roiFinder.getParameters());
     _gui.add(_pointWarper.getParameters());
     _gui.add(_featureManager.getParameters());
+
+    // setup OscController to control parameters in gui
+    _oscController = OscController(_gui);
+    _oscController.buildCommandList();
 }
 
 template <class UserFollower>
 void ofxWilkinson<UserFollower>::update(){
+    _oscController.update();
+
     if(_cam.isFrameNew()){
         _updateProfiler.start();
 

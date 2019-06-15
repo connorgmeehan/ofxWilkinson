@@ -18,7 +18,7 @@ void PresenceFollower::_setup(const glm::vec2 & pos) {
 
     _color = ofColor(rgbColor.r, rgbColor.g, rgbColor.b);
 
-    ofLog() << "PresenceFollower::_setup() -> \tpos: " << pos.x << "," << pos.y << "\t\tgenerated hue: " << hue <<"\t _color.getHue(): " << _color.getHue();
+    // ofLog() << "PresenceFollower::_setup() -> \tpos: " << pos.x << "," << pos.y << "\t\tgenerated hue: " << hue <<"\t _color.getHue(): " << _color.getHue();
     // TODO: add if inclusive or not
 }
 

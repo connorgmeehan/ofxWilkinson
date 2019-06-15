@@ -5,10 +5,10 @@ void PointWarper::setup(int width, int height){
     _height = height;
 
     // setup defaults
-    _pointWarpParams.add(_pTopLeft.set("Top Left", glm::vec2(0,0), glm::vec2(0,0), glm::vec2(_width, _height)));
-    _pointWarpParams.add(_pTopRight.set("Top Right", glm::vec2(_width,0), glm::vec2(0,0), glm::vec2(_width, _height)));
-    _pointWarpParams.add(_pBottomRight.set("Bottom Right", glm::vec2(_width,_height), glm::vec2(0,0), glm::vec2(_width, _height)));
-    _pointWarpParams.add(_pBottomLeft.set("Bottom Left", glm::vec2(0,_height), glm::vec2(0,0), glm::vec2(_width, _height)));
+    _pointWarpParams.add(_pTopLeft.set("top_left", glm::vec2(0,0), glm::vec2(0,0), glm::vec2(_width, _height)));
+    _pointWarpParams.add(_pTopRight.set("top_right", glm::vec2(_width,0), glm::vec2(0,0), glm::vec2(_width, _height)));
+    _pointWarpParams.add(_pBottomRight.set("bottom_right", glm::vec2(_width,_height), glm::vec2(0,0), glm::vec2(_width, _height)));
+    _pointWarpParams.add(_pBottomLeft.set("bottom_left", glm::vec2(0,_height), glm::vec2(0,0), glm::vec2(_width, _height)));
 
     // bind listeners
     _pTopLeft.addListener(this, &PointWarper::onTopLeft);

@@ -1,10 +1,10 @@
 template <class UserFollower>
 void FeatureManager<UserFollower>::setup() {
-    _featureManagerParams.add(_trackingPersistance.set("Tracking Persistance", 15, 5, 40));
-    _featureManagerParams.add(_trackingMaxDistance.set("Tracking Max Distance", 30, 5, 40));
-    _featureManagerParams.add(_featurePredictionDistance.set("Predict Ahead Value", 3, 0, 5));
-    _featureManagerParams.add(_featurePredictionSmoothingAlpha.set("Predict Ahead Smoothing", 0.2f, 0, 1));
-    _featureManagerParams.add(_featureSmoothingAlpha.set("Position Smoothing Amount", 0.2, 0.0, 1.0));
+    _featureManagerParams.add(_trackingPersistance.set("tracking_persistence", 15, 5, 40));
+    _featureManagerParams.add(_trackingMaxDistance.set("tracking_distance_max", 30, 5, 40));
+    _featureManagerParams.add(_featurePredictionDistance.set("tracking_predict_scale", 3, 0, 5));
+    _featureManagerParams.add(_featurePredictionSmoothingAlpha.set("tracking_predict_smoothing", 0.2f, 0, 1));
+    _featureManagerParams.add(_featureSmoothingAlpha.set("position_smoothing", 0.2, 0.0, 1.0));
 
     _featurePredictionDistance.addListener(this, &FeatureManager<UserFollower>::onFeaturePredictionDistance);
     _featurePredictionSmoothingAlpha.addListener(this, &FeatureManager<UserFollower>::onFeaturePredictionSmoothAmount);

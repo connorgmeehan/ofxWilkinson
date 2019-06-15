@@ -34,7 +34,7 @@ class RoiFinder {
         ofxCv::ContourFinder _contourFinder;
         std::vector<cv::Point2f> _features;
 
-        ofParameterGroup _roiParams = ofParameterGroup("ROI Settings");
+        ofParameterGroup _roiParams = ofParameterGroup("regions_of_interest");
         ofParameter<bool> _bgReset;
         ofParameter<float> _bgLearningTime;
         ofParameter<float> _bgThresholdCutoff;

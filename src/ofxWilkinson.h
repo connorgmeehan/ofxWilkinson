@@ -6,6 +6,7 @@
 #include "utils.h"
 
 #include "Profiler.h"
+#include "OscController.h"
 
 #include "ThreadedWebcam.h"
 #include "RoiFinder.h"
@@ -46,6 +47,7 @@ class ofxWilkinson {
         cv::Mat _camOut;
 
         Profiler _updateProfiler;
+
         RoiFinder _roiFinder;
         PointWarper _pointWarper;
         FeatureManager<UserFollower> _featureManager;
@@ -54,9 +56,10 @@ class ofxWilkinson {
         bool paramsSet();      
 
         ofxPanel _gui;
-        ofParameterGroup _globalParams = ofParameterGroup("App Settings");
+        ofParameterGroup _globalParams = ofParameterGroup("general");
         ofParameter<bool> _drawCam;
         ofParameter<bool> _drawRoi;
+        OscController _oscController;
 };
 
 #include "ofxWilkinson.hpp"

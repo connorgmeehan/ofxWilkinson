@@ -21,7 +21,7 @@ class PointWarper {
         int _width, _height;
         std::vector<cv::Point2f> _warpedPoints;
 
-        ofParameterGroup _pointWarpParams = ofParameterGroup("Point Warp Settings");
+        ofParameterGroup _pointWarpParams = ofParameterGroup("point_warper");
         ofParameter<glm::vec2> _pTopLeft, _pTopRight, _pBottomRight, _pBottomLeft;
         cv::Point2f _srcPoints[4];
         cv::Point2f _destPoints[4];

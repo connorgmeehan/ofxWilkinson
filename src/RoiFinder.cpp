@@ -6,16 +6,16 @@ void RoiFinder::setup(int width, int height) {
 
     _thresholded = cv::Mat(width, height, CV_8UC1);
 
-    _roiParams.add(_bgReset.set("Reset Background", false));
-    _roiParams.add(_bgLearningTime.set("Learning Time", LEARNING_TIME, 0.0f, 300.0f));
-    _roiParams.add(_bgThresholdCutoff.set("Threshold Cutoff", THRESHOLD_VALUE, 0.0f, 20.0f));
-    _roiParams.add(_threshBlurAmount.set("Threshold Blur", 32, 1, 80));
+    _roiParams.add(_bgReset.set("reset_background", false));
+    _roiParams.add(_bgLearningTime.set("learning_time", LEARNING_TIME, 0.0f, 300.0f));
+    _roiParams.add(_bgThresholdCutoff.set("threshold_cutoff", THRESHOLD_VALUE, 0.0f, 20.0f));
+    _roiParams.add(_threshBlurAmount.set("threshold_blur", 32, 1, 80));
 
-    _roiParams.add(_contourMinArea.set("Contour Min Area", 1, 0, 100));
-    _roiParams.add(_contourMaxArea.set("Contour Max Area", 100, 0, 100));
+    _roiParams.add(_contourMinArea.set("contour_area_min", 1, 0, 100));
+    _roiParams.add(_contourMaxArea.set("contour_area_max", 100, 0, 100));
 
-    _roiParams.add(_trackerPersistance.set("Tracker Persistance", 15, 5, 30));
-    _roiParams.add(_trackerMaxDistance.set("Tracker Max Distance", 2, 0, 10));
+    _roiParams.add(_trackerPersistance.set("tracker_persistance", 15, 5, 30));
+    _roiParams.add(_trackerMaxDistance.set("tracker_distance_max", 2, 0, 10));
 
     _bgReset.addListener(this, &RoiFinder::onBgReset);
     _bgLearningTime.addListener(this, &RoiFinder::onLearningTime);
