@@ -32,7 +32,7 @@ void ofxWilkinson<UserFollower>::setup(){
 
     _sceneBuilder.setup(_outputWidth, _outputHeight);
 
-    _gui.setup("Settings", "backend_settings.xml",  ofGetWidth() - 200, 15);
+    _gui.setup("Settings", "ofxWilkinson.json",  ofGetWidth() - 200, 15);
     _globalParams.add(_drawCam.set("draw_camera", true));
     _globalParams.add(_drawRoi.set("draw_roi", true));
     _gui.add(_globalParams);
@@ -41,6 +41,8 @@ void ofxWilkinson<UserFollower>::setup(){
     _gui.add(_roiFinder.getParameters());
     _gui.add(_pointWarper.getParameters());
     _gui.add(_featureManager.getParameters());
+
+    _gui.loadFromFile("ofxWilkinson.json");
 
     // setup OscController to control parameters in gui
     _oscController = OscController(_gui);

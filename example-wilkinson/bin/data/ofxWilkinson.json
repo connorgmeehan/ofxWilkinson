@@ -1,0 +1,31 @@
+{
+    "Settings": {
+        "feature_manager": {
+            "position_smoothing": "0.2",
+            "tracking_distance_max": "30",
+            "tracking_persistence": "15",
+            "tracking_predict_scale": "3",
+            "tracking_predict_smoothing": "0.2"
+        },
+        "general": {
+            "draw_camera": "1",
+            "draw_roi": "1"
+        },
+        "point_warper": {
+            "bottom_left": "0, 360",
+            "bottom_right": "640, 360",
+            "top_left": "0, 0",
+            "top_right": "640, 0"
+        },
+        "regions_of_interest": {
+            "contour_area_max": "100",
+            "contour_area_min": "1",
+            "learning_time": "300",
+            "reset_background": "0",
+            "threshold_blur": "32",
+            "threshold_cutoff": "14.898",
+            "tracker_distance_max": "2",
+            "tracker_persistance": "15"
+        }
+    }
+}

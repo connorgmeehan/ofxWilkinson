@@ -37,6 +37,8 @@ class OscController {
     void printHelp();
     void handleGet(std::string & commandPath);
     void handleSet(std::string & commandPath, ofxOscMessage & message);
+    void saveParameters(ofxOscMessage & message);
+    void loadParameters(ofxOscMessage & message);
 
     ofxOscReceiver _oscReceiver;
 

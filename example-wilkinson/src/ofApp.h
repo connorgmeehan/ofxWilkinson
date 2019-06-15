@@ -2,7 +2,7 @@
 
 #include "ofMain.h"
 
-#define OLA_INSTALLED
+// #define OLA_INSTALLED
 
 #include "ofxWilkinson.h"
 #include "PresenceFollower.h"

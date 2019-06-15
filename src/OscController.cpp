@@ -68,6 +68,10 @@ void OscController::update() {
     } else if(commands[0].compare(std::string("list")) == 0) {
       // Printing all commands
       printCommands();
+    } else if(commands[0].compare(std::string("save")) == 0) {
+        saveParameters(message);
+    } else if(commands[0].compare(std::string("load")) == 0) {
+        loadParameters(message);
     } else {
       std::cout << "OscController: Error: command for \"" << commandPath << "\"";
       for(int i = 0; i < message.getNumArgs(); i++) {
@@ -109,12 +113,14 @@ void OscController::printCommands() {
 }
 
 void OscController::printHelp() {
-  std::cout << "OscController: HELP" << std::endl
-  << "-----------------------------" << std::endl
-  << "/help - prints this menu" << std::endl
-  << "/list - lists all availiable commands" << std::endl
-  << "/set/{{command}} {{param1}} {{param2}} - sets a parameter to a certain value" << std::endl
-  << "/get/{{command}} - gets the value of a parameter" << std::endl;
+  std::cout << "OscController: HELP" << std::endl << 
+  "-----------------------------" << std::endl << 
+  "/help - prints this menu" << std::endl << 
+  "/list - lists all availiable commands" << std::endl << 
+  "/set/{{command}} {{param1}} {{param2}} - sets a parameter to a certain value" << std::endl << 
+  "/get/{{command}} - gets the value of a parameter" << std::endl << 
+  "/save [filename.xml/json] - saves config to xml (filename optional)" << std::endl << 
+  "/load [filename.xml/json]- loads config from xml (filename optional)" << std::endl;
 }
 
 void OscController::handleGet(std::string & commandPath) {
@@ -173,6 +179,27 @@ void OscController::handleSet(std::string & commandPath, ofxOscMessage & message
     break;
   }
 }
+
+void OscController::saveParameters(ofxOscMessage & message) {
+  if (message.getNumArgs() > 0) {
+    this->_gui->saveToFile(message.getArgAsString(0));
+    ofLog() << "OscController: saved parameters to " << message.getArgAsString(0) << ".";
+  } else {
+    this->_gui->saveToFile("ofxWilkinson.json");
+    ofLog() << "OscController: saved parameters to ofxWilkinson.";
+  }
+}
+
+void OscController::loadParameters(ofxOscMessage & message) {
+  if (message.getNumArgs() > 0) {
+    this->_gui->loadFromFile(message.getArgAsString(0));
+    ofLog() << "OscController: loaded parameters from " << message.getArgAsString(0) << ".";
+  } else {
+    this->_gui->loadFromFile("ofxWilkinson.json");
+    ofLog() << "OscController: loaded parameters to ofxWilkinson.";
+  }
+}
+
 
 Command OscController::getCommandFromPath(std::string & commandPath) {
   std::vector<Command>::iterator el = std::find_if(_controls.begin(), _controls.end(), 
