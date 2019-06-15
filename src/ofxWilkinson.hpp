@@ -106,7 +106,11 @@ void ofxWilkinson<UserFollower>::draw(int x, int y){
 
                 if(_drawCam) {
                     debugString += "_camOut channels size: " + ofToString(_camOut.channels()) + ", _camOut.type(): " + cv::type2str(_camOut.type()) + "\n";
-                    ofImage tempCam;
+#ifdef __amd64__
+                        ofFloatImage tempCam;
+#else 
+                        ofImage tempCam;
+#endif
                     tempCam.allocate(_cameraWidth, _cameraHeight, OF_IMAGE_GRAYSCALE);
                     ofxCv::toOf(_camOut, tempCam);        
                     _cam.draw(0,0);
