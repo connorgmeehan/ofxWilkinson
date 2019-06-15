@@ -66,7 +66,7 @@ void ofxWilkinson<UserFollower>::update(){
         // Get the camera output
         _camOut = ofxCv::toCv(_cam.getPixels());
 
-        if(_isCameraInit == false && ofGetElapsedTimef() > 1.0f) {
+        if(_isCameraInit == false && ofGetElapsedTimef() > 10.0f) {
             _roiFinder.reset();
             _isCameraInit = true;
         }    

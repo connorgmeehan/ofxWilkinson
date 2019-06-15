@@ -12,10 +12,10 @@
             "draw_roi": "1"
         },
         "point_warper": {
-            "bottom_left": "0, 360",
-            "bottom_right": "640, 360",
+            "bottom_left": "0, 90",
+            "bottom_right": "160, 90",
             "top_left": "0, 0",
-            "top_right": "640, 0"
+            "top_right": "160, 0"
         },
         "regions_of_interest": {
             "contour_area_max": "100",
