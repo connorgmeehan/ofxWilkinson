@@ -72,6 +72,8 @@ void OscController::update() {
         saveParameters(message);
     } else if(commands[0].compare(std::string("load")) == 0) {
         loadParameters(message);
+    } else if(commands[0].compare(std::string("fps")) == 0) {
+        ofLog() << "OscController: Frames per second: " << ofGetFrameRate() << "fps";
     } else {
       std::cout << "OscController: Error: command for \"" << commandPath << "\"";
       for(int i = 0; i < message.getNumArgs(); i++) {
@@ -120,7 +122,8 @@ void OscController::printHelp() {
   "/set/{{command}} {{param1}} {{param2}} - sets a parameter to a certain value" << std::endl << 
   "/get/{{command}} - gets the value of a parameter" << std::endl << 
   "/save [filename.xml/json] - saves config to xml (filename optional)" << std::endl << 
-  "/load [filename.xml/json]- loads config from xml (filename optional)" << std::endl;
+  "/load [filename.xml/json]- loads config from xml (filename optional)" << std::endl <<
+  "/fps - prints frames per second" << std::endl;
 }
 
 void OscController::handleGet(std::string & commandPath) {
