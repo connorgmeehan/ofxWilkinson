@@ -20,10 +20,7 @@ void ofxWilkinson<UserFollower>::setup(){
     ofSetFrameRate(ARTNET_MAX_FPS);
 
     _updateProfiler.setGoal(1.0f / (float) ARTNET_MAX_FPS);
-
-    _cam.setup(_cameraWidth, _cameraHeight);
-    _camOut = cv::Mat(_cameraWidth, _cameraHeight, CV_8UC3);
-
+    
     _roiFinder.setup(_cameraWidth, _cameraHeight);
     _pointWarper.setup(_cameraWidth, _cameraHeight);
 
@@ -60,28 +57,21 @@ template <class UserFollower>
 void ofxWilkinson<UserFollower>::update(){
     _oscController.update();
 
-    if(_cam.isFrameNew()){
-        _updateProfiler.start();
+    // if(_cam.isFrameNew()){
+    _updateProfiler.start();
 
-        // Get the camera output
-        _camOut = ofxCv::toCv(_cam.getPixels());
-
-        if(_isCameraInit == false && ofGetElapsedTimef() > 10.0f) {
-            _roiFinder.reset();
-            _isCameraInit = true;
-        }    
-
-        // Run background diff and contours to find regions of interest
-        _roiFinder.update(_camOut);
-
-        // Warp the centers of the regions of interest to the output dimensions
-        _pointWarper.warpPoints(_roiFinder.getFeatures());
-
-        // Make feature manager track newly warped features 
-        _featureManager.update(_pointWarper.getWarped());
-        
-        _updateProfiler.stop();
+    if(_isCameraInit == false && ofGetElapsedTimef() > 10.0f) {
+        _roiFinder.reset();
+        _isCameraInit = true;
     }
+    auto features = _roiFinder.getFeatures();
+    // Warp the centers of the regions of interest to the output dimensions
+    _pointWarper.warpPoints(features);
+
+    // Make feature manager track newly warped features 
+    _featureManager.update(_pointWarper.getWarped());
+    
+    _updateProfiler.stop();
 }
 
 template <class UserFollower>
@@ -105,15 +95,15 @@ void ofxWilkinson<UserFollower>::draw(int x, int y){
                 ofDrawRectangle(0, _cameraHeight, _outputWidth, _outputHeight);
 
                 if(_drawCam) {
-                    debugString += "_camOut channels size: " + ofToString(_camOut.channels()) + ", _camOut.type(): " + cv::type2str(_camOut.type()) + "\n";
-#ifdef TARGET_LINUX_ARM
-                    ofImage tempCam;
-#else 
-                    ofFloatImage tempCam;
-#endif
-                    tempCam.allocate(_cameraWidth, _cameraHeight, OF_IMAGE_GRAYSCALE);
-                    ofxCv::toOf(_camOut, tempCam);        
-                    _cam.draw(0,0);
+//                     debugString += "_camOut channels size: " + ofToString(_camOut.channels()) + ", _camOut.type(): " + cv::type2str(_camOut.type()) + "\n";
+// #ifdef TARGET_LINUX_ARM
+//                     ofImage tempCam;
+// #else 
+//                     ofFloatImage tempCam;
+// #endif
+//                     tempCam.allocate(_cameraWidth, _cameraHeight, OF_IMAGE_GRAYSCALE);
+//                     ofxCv::toOf(_camOut, tempCam);        
+//                     _cam.draw(0,0);
                 }
                 if(_drawOscControls) {
                     _oscController.draw(_cameraWidth, 0);
@@ -192,7 +182,7 @@ bool ofxWilkinson<UserFollower>::paramsSet(){
 
 template <class UserFollower>
 void ofxWilkinson<UserFollower>::exit(){
-    _cam.stopThread();
+    _roiFinder.stopThread();
     _oscController.stop();
 }
 

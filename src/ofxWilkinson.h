@@ -8,7 +8,6 @@
 #include "Profiler.h"
 #include "OscController.h"
 
-#include "ThreadedWebcam.h"
 #include "RoiFinder.h"
 #include "PointWarper.h"
 #include "FeatureManager.h"
@@ -43,8 +42,6 @@ class ofxWilkinson {
         int _cameraWidth, _cameraHeight;
         int _outputWidth, _outputHeight;
         int _outputCols, _outputRows;
-        ThreadedWebcam _cam;
-        cv::Mat _camOut;
 
         Profiler _updateProfiler;
 

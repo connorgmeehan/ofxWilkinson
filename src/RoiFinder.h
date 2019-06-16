@@ -8,14 +8,16 @@
 constexpr float LEARNING_TIME = 300.0f;
 constexpr float THRESHOLD_VALUE = 8.0f;
 
-class RoiFinder {
+class RoiFinder : public ofThread {
     public:
+        ~RoiFinder();
         void setup(int width, int height);
-        void update(cv::Mat & mat);
+        void threadedFunction();
         void draw();
+        void stop();
 
         ofParameterGroup & getParameters();
-        std::vector<cv::Point2f> & getFeatures();
+        std::vector<cv::Point2f> getFeatures();
 
         void reset();
 
@@ -28,18 +30,27 @@ class RoiFinder {
         void onTrackerMaxDist(int & val);
     private:
         int _width, _height;
+
+        ofVideoGrabber _cam;
+
         ofxCv::RunningBackground _background;
         cv::Mat _thresholded;
 
         ofxCv::ContourFinder _contourFinder;
         std::vector<cv::Point2f> _features;
 
-        ofParameterGroup _roiParams = ofParameterGroup("regions_of_interest");
-        ofParameter<bool> _bgReset;
-        ofParameter<float> _bgLearningTime;
-        ofParameter<float> _bgThresholdCutoff;
-        ofParameter<int> _threshBlurAmount;
+        bool _bgReset;
+        float _bgLearningTime;
+        float _bgThresholdCutoff;
+        int _threshBlurAmount;
+        int _contourMinArea, _contourMaxArea;
+        int _trackerPersistance, _trackerMaxDistance; 
 
-        ofParameter<int> _contourMinArea, _contourMaxArea;
-        ofParameter<int> _trackerPersistance, _trackerMaxDistance;
+        ofParameterGroup _roiParams = ofParameterGroup("regions_of_interest");
+        ofParameter<bool> _param_bgReset;
+        ofParameter<float> _param_bgLearningTime;
+        ofParameter<float> _param_bgThresholdCutoff;
+        ofParameter<int> _param_threshBlurAmount;
+        ofParameter<int> _param_contourMinArea, _param_contourMaxArea;
+        ofParameter<int> _param_trackerPersistance, _param_trackerMaxDistance;
 };

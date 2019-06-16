@@ -30,6 +30,7 @@ class OscController {
     void buildCommandList();
     void update();
     void draw(int x, int y);
+    void stop();
 
   private:
     Command getCommandFromPath(std::string & commandPath);
