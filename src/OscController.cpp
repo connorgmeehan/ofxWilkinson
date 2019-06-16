@@ -102,8 +102,11 @@ void OscController::draw(int x, int y) {
   ofDrawBitmapString(controlsString, x, y);
 }
 
-void OscController::printCommands() {
+void OscController::stop() {
+  _oscReceiver.stop();
+}
 
+void OscController::printCommands() {
   auto typePrinter = [](CommandType type) -> char* {
     switch (type)
     {
@@ -132,15 +135,15 @@ void OscController::printCommands() {
 }
 
 void OscController::printHelp() {
-  std::cout << "OscController: HELP" << std::endl << 
-  "-----------------------------" << std::endl << 
-  "/help - prints this menu" << std::endl << 
-  "/list - lists all availiable commands" << std::endl << 
-  "/set/{{command}} {{param1}} {{param2}} - sets a parameter to a certain value" << std::endl << 
-  "/get/{{command}} - gets the value of a parameter" << std::endl << 
-  "/save [filename.xml/json] - saves config to xml (filename optional)" << std::endl << 
-  "/load [filename.xml/json]- loads config from xml (filename optional)" << std::endl <<
-  "/fps - prints frames per second" << std::endl;
+  std::cout << "OscController: HELP" << std::endl;
+  std::cout << "-----------------------------" << std::endl;
+  std::cout << "/help - prints this menu" << std::endl;
+  std::cout << "/list - lists all availiable commands" << std::endl;
+  std::cout << "/set/{{command}} {{param1}} {{param2}} - sets a parameter to a certain value" << std::endl;
+  std::cout << "/get/{{command}} - gets the value of a parameter" << std::endl;
+  std::cout << "/save [filename.xml/json] - saves config to xml (filename optional)" << std::endl;
+  std::cout << "/load [filename.xml/json]- loads config from xml (filename optional)" << std::endl;
+  std::cout << "/fps - prints frames per second" << std::endl;
 }
 
 void OscController::handleGet(std::string & commandPath) {

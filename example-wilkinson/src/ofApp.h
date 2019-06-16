@@ -20,7 +20,7 @@ class ofApp : public ofBaseApp{
 		ofFbo followerFbo;
 
 		int inputWidth = 160;
-		int inputHeight = 90;
+		int inputHeight = 120;
 
 		int outputWidth = 64;
 		int outputHeight = 50;
