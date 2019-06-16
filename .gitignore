@@ -8,3 +8,7 @@
 */obj/
 */cmake-build-debug/
 */compile_commands.json
+
+*callgrind*
+*vgcore*
+*.code-workspace
