@@ -13,7 +13,8 @@ class RoiFinder : public ofThread {
         ~RoiFinder();
         void setup(int width, int height);
         void threadedFunction();
-        void draw();
+        void drawCamera();
+        void drawThreshold();
         void stop();
 
         ofParameterGroup & getParameters();
@@ -24,6 +25,7 @@ class RoiFinder : public ofThread {
         void onBgReset(bool & val);
         void onLearningTime(float & val);
         void onBgThreshold(float & val);
+        void onThreshBlurAmount(int & val);
         void onContourMin(int & val);
         void onContourMax(int & val);
         void onTrackerPersistance(int & val);
@@ -39,12 +41,7 @@ class RoiFinder : public ofThread {
         ofxCv::ContourFinder _contourFinder;
         std::vector<cv::Point2f> _features;
 
-        bool _bgReset;
-        float _bgLearningTime;
-        float _bgThresholdCutoff;
         int _threshBlurAmount;
-        int _contourMinArea, _contourMaxArea;
-        int _trackerPersistance, _trackerMaxDistance; 
 
         ofParameterGroup _roiParams = ofParameterGroup("regions_of_interest");
         ofParameter<bool> _param_bgReset;

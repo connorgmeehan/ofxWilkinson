@@ -25,10 +25,13 @@ void RoiFinder::setup(int width, int height) {
     _param_bgReset.addListener(this, &RoiFinder::onBgReset);
     _param_bgLearningTime.addListener(this, &RoiFinder::onLearningTime);
     _param_bgThresholdCutoff.addListener(this, &RoiFinder::onBgThreshold);
+    _param_threshBlurAmount.addListener(this, &RoiFinder::onThreshBlurAmount);
     _param_contourMinArea.addListener(this, &RoiFinder::onContourMin);
     _param_contourMaxArea.addListener(this, &RoiFinder::onContourMax);
     _param_trackerPersistance.addListener(this, &RoiFinder::onTrackerPersistance);
     _param_trackerMaxDistance.addListener(this, &RoiFinder::onTrackerMaxDist);
+
+    _threshBlurAmount = _param_threshBlurAmount;
 
     _background.setLearningTime(_param_bgLearningTime);
     _background.setThresholdValue(_param_bgThresholdCutoff);
@@ -42,19 +45,19 @@ void RoiFinder::setup(int width, int height) {
 
 void RoiFinder::threadedFunction() {
     while(isThreadRunning()) {
+        _cam.update();
         if(_cam.isFrameNew()) {
-            ofLog() << "Cam is frame new";
 
-            _background.update(_cam.getPixels(), _thresholded);
-            ofLog() << "bg updated";
-            cv::blur(_thresholded, _thresholded, cv::Size(_threshBlurAmount, _threshBlurAmount), cv::Point(-1, -1));
-            ofLog() << "blur applied";
+            cv::Mat frame = ofxCv::toCv(_cam.getPixels());
+
+            _background.update(frame, _thresholded);
+            if(_threshBlurAmount > 0) {
+                cv::blur(_thresholded, _thresholded, cv::Size(_threshBlurAmount, _threshBlurAmount), cv::Point(-1, -1));
+            }
 
             _contourFinder.findContours(_thresholded);
-            ofLog() << "contours found";
 
             lock();
-            ofLog() << "contours found";
             _features.resize(_contourFinder.size() );
             for(int i = 0; i < _contourFinder.size(); i++) {
                 _features[i] = _contourFinder.getCenter(i);
@@ -64,21 +67,31 @@ void RoiFinder::threadedFunction() {
     }
 }
 
-void RoiFinder::draw() {
+void RoiFinder::drawCamera() {
+    ofEnableBlendMode(OF_BLENDMODE_DISABLED);
+    ofSetColor(255,255,255,255);
+    lock();
+    auto temp = ofImage(_cam.getPixels());
+    unlock();
+    temp.draw(0,0);
+}
 
-        ofEnableBlendMode(OF_BLENDMODE_ADD);
-        ofSetColor(255,255,255,150);
+void RoiFinder::drawThreshold() {
+    ofEnableBlendMode(OF_BLENDMODE_ADD);
+    ofSetColor(255,255,255,150);
+    lock();
 
-        ofPixels thresholdedPixels;
-        ofxCv::toOf(_thresholded, thresholdedPixels);
-        ofImage thresholdedImg(thresholdedPixels);
-        thresholdedImg.draw(0,0);
+    ofPixels thresholdedPixels;
+    ofxCv::toOf(_thresholded, thresholdedPixels);
+    ofImage thresholdedImg(thresholdedPixels);
+    thresholdedImg.draw(0,0);
 
-        _contourFinder.draw();
+    _contourFinder.draw();
 
-        for(auto & p : _features) {
-            ofDrawCircle(p.x, p.y, 2);
-        }
+    for(auto & p : _features) {
+        ofDrawCircle(p.x, p.y, 2);
+    }
+    unlock();
 }
 
 void RoiFinder::stop() {
@@ -95,13 +108,13 @@ ofParameterGroup & RoiFinder::getParameters(){
 
 void RoiFinder::reset() {
     lock();
-    _bgReset = false;
+    _param_bgReset = false;
     _background.reset();
     unlock();
 }
 
 void RoiFinder::onBgReset(bool & val){
-    if(_bgReset){
+    if(_param_bgReset){
         reset();
     }
 }
@@ -115,6 +128,12 @@ void RoiFinder::onLearningTime(float & val){
 void RoiFinder::onBgThreshold(float & val){
     lock();
     _background.setThresholdValue(val);
+    unlock();
+}
+
+void RoiFinder::onThreshBlurAmount(int & val){
+    lock();
+    _threshBlurAmount = val;
     unlock();
 }
 

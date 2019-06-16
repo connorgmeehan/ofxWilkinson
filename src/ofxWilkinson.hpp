@@ -20,7 +20,7 @@ void ofxWilkinson<UserFollower>::setup(){
     ofSetFrameRate(ARTNET_MAX_FPS);
 
     _updateProfiler.setGoal(1.0f / (float) ARTNET_MAX_FPS);
-    
+
     _roiFinder.setup(_cameraWidth, _cameraHeight);
     _pointWarper.setup(_cameraWidth, _cameraHeight);
 
@@ -95,21 +95,13 @@ void ofxWilkinson<UserFollower>::draw(int x, int y){
                 ofDrawRectangle(0, _cameraHeight, _outputWidth, _outputHeight);
 
                 if(_drawCam) {
-//                     debugString += "_camOut channels size: " + ofToString(_camOut.channels()) + ", _camOut.type(): " + cv::type2str(_camOut.type()) + "\n";
-// #ifdef TARGET_LINUX_ARM
-//                     ofImage tempCam;
-// #else 
-//                     ofFloatImage tempCam;
-// #endif
-//                     tempCam.allocate(_cameraWidth, _cameraHeight, OF_IMAGE_GRAYSCALE);
-//                     ofxCv::toOf(_camOut, tempCam);        
-//                     _cam.draw(0,0);
+                    _roiFinder.drawCamera(); 
                 }
                 if(_drawOscControls) {
                     _oscController.draw(_cameraWidth, 0);
                 }
 
-                if(_drawRoi) { _roiFinder.draw(); }
+                if(_drawRoi) { _roiFinder.drawThreshold(); }
                 if(_drawPointWarper) { _pointWarper.draw(); }
                 if(_drawFeatureManager) {_featureManager.draw(_cameraWidth, _cameraHeight); }
                 if(_drawFollowers) {
