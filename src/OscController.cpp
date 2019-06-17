@@ -12,6 +12,7 @@ OscController::OscController(ofxGuiGroup & gui) :
 
   ofLog() << "OscController::OscController() -> starting osc server on port " << port;
   _oscReceiver.setup(port);
+  ofSleepMillis(50);
 }
 
 void OscController::buildCommandList() {
@@ -74,6 +75,12 @@ void OscController::update() {
         loadParameters(message);
     } else if(commands[0].compare(std::string("fps")) == 0) {
         ofLog() << "OscController: Frames per second: " << ofGetFrameRate() << "fps";
+    } else if(commands[0].compare(std::string("ola")) == 0) {
+#ifdef OLA_INSTALLED
+      ofLog() << "OscController: Open lighting architecture is installed";
+#else
+      ofLog() << "OscController: Open lighting architecture is not installed, OlaCommunicator is a stub.";
+#endif
     } else {
       std::cout << "OscController: Error: command for \"" << commandPath << "\"";
       for(int i = 0; i < message.getNumArgs(); i++) {
@@ -144,6 +151,7 @@ void OscController::printHelp() {
   std::cout << "/save [filename.xml/json] - saves config to xml (filename optional)" << std::endl;
   std::cout << "/load [filename.xml/json]- loads config from xml (filename optional)" << std::endl;
   std::cout << "/fps - prints frames per second" << std::endl;
+  std::cout << "/ola - prints whether or not we're communicating with Open Lighting Architecture" << std::endl;
 }
 
 void OscController::handleGet(std::string & commandPath) {
