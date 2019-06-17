@@ -24,7 +24,7 @@ vec3 bg_frag = vec3(0, 0.5, 0.5);
     bg_frag.g += sin(dist*1.0)*cos(dist*1.)*0.5;
     bg_frag.b += sin(dist*1.01)*cos(dist*1.03)*0.7;
 
-    vec4 metaball_frag = texture2DRect(tex0_in, gl_FragCoord.xy);
+    vec4 metaball_frag = texture2D(tex0_in, gl_FragCoord.xy);
 
     gl_FragColor = vec4(metaball_frag.rgb + bg_frag*bg_strength, 1);
 }
