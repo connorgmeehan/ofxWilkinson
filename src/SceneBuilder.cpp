@@ -16,6 +16,6 @@ void SceneBuilder::unbindFrame(){
     _ola.sendFrame(_frame);
 }
 
-void SceneBuilder::draw() {
-    _frame.draw(0,0);
+void SceneBuilder::draw(int x, int y) {
+    _frame.draw(x, y);
 }

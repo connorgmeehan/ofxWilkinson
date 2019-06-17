@@ -111,9 +111,8 @@ void ofxWilkinson<UserFollower>::draw(int x, int y){
                     }
                 }
                 if(_drawSceneBuilder) {
-                    ofTranslate(_outputWidth, 0);
                     ofSetColor(ofColor::white);
-                    _sceneBuilder.draw();
+                    _sceneBuilder.draw(_outputWidth, 0);
                 }
 
             ofPopMatrix();
@@ -121,6 +120,11 @@ void ofxWilkinson<UserFollower>::draw(int x, int y){
 
     }
     _updateProfiler.draw(x, y-50, _cameraWidth, 50);
+}
+
+template <class UserFollower>
+void ofxWilkinson<UserFollower>::drawOutputFrame(int x, int y) {
+    _sceneBuilder.draw(x, y);
 }
 
 template <class UserFollower>

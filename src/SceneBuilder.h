@@ -12,7 +12,7 @@ class SceneBuilder {
         void setup(int width, int height);
         void bindFrame();
         void unbindFrame();
-        void draw();
+        void draw(int x, int y);
 
         void sendToArtnet();
     private:
