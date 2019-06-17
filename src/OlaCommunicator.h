@@ -1,6 +1,7 @@
 #include "ofMain.h"
 
 #ifdef OLA_INSTALLED
+
 #include <ola/DmxBuffer.h>
 #include <ola/io/SelectServer.h>
 #include <ola/Logging.h>
@@ -9,14 +10,10 @@
 #include <ola/Callback.h>
 
 class OlaCommunicator {
-    bool debug = true;
-    ofFbo * debugFbo;
-    std::string mAddress;
-    int mPort = -1;
-    int array_height = 16;
-    int array_width = 50;
-    std::vector<ola::DmxBuffer> dmxbuffers;
-    ola::client::OlaClientWrapper wrapper;
+    int _arrayWidth, _arrayHeight;
+    int _strandLength;
+    std::vector<ola::DmxBuffer> _dmxBuffers;
+    ola::client::OlaClientWrapper _olaWrapper;
      public:
 
         OlaCommunicator(){
@@ -33,10 +30,15 @@ class OlaCommunicator {
             }
         }
 
-        void setup(int _width, int _height) {
-            dmxbuffers.resize(array_height);
+        void setup(int width, int height, int strandCount, int strandLength) {
+            _arrayWidth = arrayWidth;
+            _arrayHeight = arrayHeight;
+            
+            _fboStep = width / strandLength;
+            _dataLength = strandLength * 3;
+            _dmxBuffers.resize(strandCount);
 
-            for(auto & dmxbuffer : dmxbuffers){
+            for(auto & dmxbuffer : _dmxBuffers){
                 dmxbuffer.Blackout();
             }
         }
@@ -45,17 +47,12 @@ class OlaCommunicator {
             ofPixels frame;
             fbo.readToPixels(frame);
 
-            int fbo_step = 4;
-
             ola::client::SendDMXArgs dummy_args = ola::client::SendDMXArgs();
-            for(int i = 0; i < dmxbuffers.size(); i++){
-                dmxbuffers[i].Set( &frame.getPixels()[150*i*fbo_step], (unsigned int) 150 );
-                wrapper.GetClient()->SendDMX(i, dmxbuffers.at(i), dummy_args);
+            for(int i = 0; i < _dmxBuffers.size(); i++){
+                _dmxBuffers[i].Set( &frame.getPixels()[_strandLength*i*_fboStep], (unsigned int) 150 );
+                _olaWrapper.GetClient()->SendDMX(i, _dmxBuffers.at(i), dummy_args);
             }
         }
-
-
-
 };
 #endif
 
