@@ -10,8 +10,9 @@
 #include <ola/Callback.h>
 
 class OlaCommunicator {
-    int _arrayWidth, _arrayHeight;
     int _strandLength;
+    int _fboStep; // length of step 
+    int _dataLength; // Length of entire RGB data array (3 * strandLength)
     std::vector<ola::DmxBuffer> _dmxBuffers;
     ola::client::OlaClientWrapper _olaWrapper;
      public:
@@ -24,16 +25,13 @@ class OlaCommunicator {
 
             ola::InitLogging(ola::OLA_LOG_WARN, ola::OLA_LOG_STDERR);
 
-             if (!wrapper.Setup()) {
+             if (!_olaWrapper.Setup()) {
                 std::cerr << "Setup failed" << endl;
                 ofExit(1);
             }
         }
 
         void setup(int width, int height, int strandCount, int strandLength) {
-            _arrayWidth = arrayWidth;
-            _arrayHeight = arrayHeight;
-            
             _fboStep = width / strandLength;
             _dataLength = strandLength * 3;
             _dmxBuffers.resize(strandCount);
@@ -47,10 +45,10 @@ class OlaCommunicator {
             ofPixels frame;
             fbo.readToPixels(frame);
 
-            ola::client::SendDMXArgs dummy_args = ola::client::SendDMXArgs();
+            ola::client::SendDMXArgs dmxArgs = ola::client::SendDMXArgs();
             for(int i = 0; i < _dmxBuffers.size(); i++){
-                _dmxBuffers[i].Set( &frame.getPixels()[_strandLength*i*_fboStep], (unsigned int) 150 );
-                _olaWrapper.GetClient()->SendDMX(i, _dmxBuffers.at(i), dummy_args);
+                _dmxBuffers[i].Set( &frame.getPixels()[_dataLength*i*_fboStep], (unsigned int) _dataLength );
+                _olaWrapper.GetClient()->SendDMX(i, _dmxBuffers.at(i), dmxArgs);
             }
         }
 };
