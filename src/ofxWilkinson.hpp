@@ -119,8 +119,8 @@ void ofxWilkinson<UserFollower>::draw(int x, int y){
             ofPopMatrix();
         ofPopStyle();
 
-        _updateProfiler.draw(x, y-50, _cameraWidth, 50);
     }
+    _updateProfiler.draw(x, y-50, _cameraWidth, 50);
 }
 
 template <class UserFollower>
