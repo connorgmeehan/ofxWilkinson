@@ -3,11 +3,11 @@
 precision mediump float;
 #endif
 
-uniform sampler2DRect tex0_in;
-uniform vec2 resolution = vec2(64, 50);
-uniform float threshold = 0.0;
-uniform float i_time = 0.0;
-uniform float bg_strength = 0.1;
+uniform sampler2D tex0_in;
+uniform vec2 resolution;
+uniform float threshold;
+uniform float i_time;
+uniform float bg_strength;
 
 varying vec2 texCoordVarying;
 
