@@ -1,3 +1,8 @@
+
+#ifdef GL_ES
+precision mediump float;
+#endif
+
 uniform sampler2DRect tex0_in;
 uniform vec2 resolution = vec2(64, 50);
 uniform float threshold = 0.0;
@@ -13,7 +18,7 @@ void main() {
     // center origin
     uv-=.5;
 
-    vec3 bg_frag = vec3(0, 0.5, 0.5);
+vec3 bg_frag = vec3(0, 0.5, 0.5);
     float dist = distance(uv * ripple_scale, vec2(0.5, 0.5)) - i_time;
     bg_frag.r += sin(dist*0.99)*cos(dist*0.97)*0.2;
     bg_frag.g += sin(dist*1.0)*cos(dist*1.)*0.5;
