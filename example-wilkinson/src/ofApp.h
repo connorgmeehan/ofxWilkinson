@@ -29,6 +29,9 @@ class ofApp : public ofBaseApp{
 		int outputHeight = 50;
 		int outputFboWidth, outputFboHeight;
 
+		int strandCount = 15;
+		int strandLength = 50;
+		
 		float shaderBackgroundStrength = 1.0f;
 
 		void exit();

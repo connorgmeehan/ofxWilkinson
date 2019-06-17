@@ -66,8 +66,8 @@ class OlaCommunicator{
             ofLog(OF_LOG_WARNING) << "---";
         }
 
-        void sendFrame(ofFbo & fbo){
+        void setup(int width, int height, int strandCount, int strandLength) {}
 
-        }
+        void sendFrame(ofFbo & fbo){}
 };
 #endif

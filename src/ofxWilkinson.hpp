@@ -27,8 +27,6 @@ void ofxWilkinson<UserFollower>::setup(){
     _featureManager.setOutputScale( glm::vec2(_cameraWidth, _cameraHeight), glm::vec2(_outputWidth, _outputHeight));
     _featureManager.setup();
 
-    _sceneBuilder.setup(_outputWidth, _outputHeight);
-
     _gui.setup("Settings", "ofxWilkinson.json",  ofGetWidth() - 200, 15);
     _globalParams.add(_hideAll.set("hide_all", false));
     _globalParams.add(_drawOscControls.set("draw_osc", true));
@@ -138,6 +136,16 @@ template <class UserFollower>
 void ofxWilkinson<UserFollower>::setCameraDimensions(int width, int height){
     _cameraWidth = width;
     _cameraHeight = height;
+}
+
+template <class UserFollower>
+void ofxWilkinson<UserFollower>::setLightingArrayDimensions(int count, int length){
+    if(_outputWidth != 0 || _outputHeight != 0) {
+        _sceneBuilder.setup(_outputWidth, _outputHeight, count, length);
+    } else {
+        ofLog() << "ofxWilkinson::setLightingArrayDimensions() -> you must run setOutputDimensions before running setLightingArrayDimensions";
+        ofExit();
+    }
 }
 
 template <class UserFollower>
