@@ -42,7 +42,7 @@ class OlaCommunicator {
         }
 
         void sendFrame(ofFbo & fbo){
-            ofPixels frame;
+	    ofPixels frame;
             fbo.readToPixels(frame);
 
             ola::client::SendDMXArgs dmxArgs = ola::client::SendDMXArgs();
