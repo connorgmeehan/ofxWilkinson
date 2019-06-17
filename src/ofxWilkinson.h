@@ -25,6 +25,7 @@ class ofxWilkinson {
         void setup();
         void update();
         void draw(int x, int y);
+        void drawOutputFrame(int x, int y);
         void drawFollowers();
 
         void setCameraDimensions(int width, int height);
