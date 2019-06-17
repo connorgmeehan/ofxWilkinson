@@ -13,6 +13,7 @@ void ofApp::setup(){
   // Setup ofxwilkinson settings
   wilkinson.setCameraDimensions(inputWidth, inputHeight);
   wilkinson.setOutputDimensions(16, 50, outputWidth, outputHeight);
+  wilkinson.setLightingArrayDimensions(strandCount, strandLength);
   wilkinson.setup();
 
   // Setup follower FBO

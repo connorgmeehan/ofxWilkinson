@@ -23,12 +23,15 @@ class ofApp : public ofBaseApp{
 		ofFbo followerFbo;
 
 		int inputWidth = 160;
-		int inputHeight = 120;
+		int inputHeight = 90;
 
 		int outputWidth = 64;
 		int outputHeight = 50;
 		int outputFboWidth, outputFboHeight;
 
+		int strandCount = 15;
+		int strandLength = 50;
+		
 		float shaderBackgroundStrength = 1.0f;
 
 		void exit();

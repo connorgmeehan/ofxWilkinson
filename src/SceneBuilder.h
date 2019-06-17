@@ -9,7 +9,7 @@ class SceneBuilder {
         ~SceneBuilder() {
             
         }
-        void setup(int width, int height);
+        void setup(int width, int height, int strandCount, int strandLength);
         void bindFrame();
         void unbindFrame();
         void draw(int x, int y);
