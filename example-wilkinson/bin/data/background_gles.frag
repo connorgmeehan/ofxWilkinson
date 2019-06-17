@@ -3,7 +3,7 @@
 precision mediump float;
 #endif
 
-uniform sampler2D tex0_in;
+uniform sampler2D tex0;
 uniform vec2 resolution;
 uniform float threshold;
 uniform float i_time;
@@ -16,7 +16,7 @@ void main() {
     float ripple_scale = 10.0;   
 
     // Get frag at this coordinate
-    vec4 metaball_frag = texture2D(tex0_in, uv.xy);
+    vec4 metaball_frag = texture2D(tex0, uv.xy);
 
     // center origin (for rendering pond effect)
     uv-=.5;
@@ -28,6 +28,5 @@ void main() {
     bg_frag.g += sin(dist*1.0)*cos(dist*1.)*0.5;
     bg_frag.b += sin(dist*1.01)*cos(dist*1.03)*0.7;
 
-    // output frag color
     gl_FragColor = vec4(metaball_frag.rgb + bg_frag*bg_strength, 1);
 }
