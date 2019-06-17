@@ -21,6 +21,10 @@ class OlaCommunicator {
 
         OlaCommunicator(){
 
+            ofLog(OF_LOG_WARNING) << "---";
+            ofLog(OF_LOG_WARNING) << " OlaCommunicator intitialised.";
+            ofLog(OF_LOG_WARNING) << "---";
+
             ola::InitLogging(ola::OLA_LOG_WARN, ola::OLA_LOG_STDERR);
 
              if (!wrapper.Setup()) {
@@ -57,11 +61,14 @@ class OlaCommunicator {
 
 #ifndef OLA_INSTALLED
 
+#include "ofLog.h";
 // STUB
 class OlaCommunicator{
     public: 
         OlaCommunicator(){
-            ofLog() << " OlaCommunicator stub intitialised.  Wont be able to ";
+            ofLog(OF_LOG_WARNING) << "---";
+            ofLog(OF_LOG_WARNING) << " OlaCommunicator stub intitialised.  Wont be able to communicate with LEDs.";
+            ofLog(OF_LOG_WARNING) << "---";
         }
 
         void sendFrame(ofFbo & fbo){
