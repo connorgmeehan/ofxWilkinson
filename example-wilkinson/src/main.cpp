@@ -5,7 +5,7 @@
 int main( ){
 
 	// #ifdef __arm__
-	#ifdef TARGET_LINUX_ARM 
+	#ifdef TARGET_OPENGLES 
 		ofGLESWindowSettings settings;
 		settings.glesVersion = 2;
 	#else

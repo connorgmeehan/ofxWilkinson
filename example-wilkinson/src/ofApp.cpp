@@ -20,7 +20,7 @@ void ofApp::setup(){
   followerFbo.end();
 
   // Setup shader
-  #ifdef TARGET_LINUX_ARM 
+  #ifdef TARGET_OPENGLES 
     backgroundShader.load("background_gles");
 	#else
     backgroundShader.load("background");
