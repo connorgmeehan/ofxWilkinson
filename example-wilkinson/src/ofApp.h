@@ -14,8 +14,11 @@ class ofApp : public ofBaseApp{
 		void update();
 		void draw();
 
+		ofCamera cam;
+
 		ofxWilkinson<PresenceFollower> wilkinson;
 		ofShader backgroundShader;
+		ofPlanePrimitive plane;
 
 		ofFbo followerFbo;
 
@@ -24,6 +27,7 @@ class ofApp : public ofBaseApp{
 
 		int outputWidth = 64;
 		int outputHeight = 50;
+		int outputFboWidth, outputFboHeight;
 
 		float shaderBackgroundStrength = 1.0f;
 

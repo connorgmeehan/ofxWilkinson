@@ -3,6 +3,8 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
 
+  cam.enableOrtho();
+
   // Setup follower settings
   PresenceFollower::setBlobSettings(10, 32);
   PresenceFollower::setColorRange(100, 200, false);
@@ -18,6 +20,12 @@ void ofApp::setup(){
   followerFbo.begin();
   ofClear(0);
   followerFbo.end();
+
+  // Setup plane to mix background / FBO of followers on
+  plane.set(outputWidth*2, outputHeight*2);
+  plane.setPosition(0,0,0);
+  plane.setResolution(2,2);
+  plane.mapTexCoordsFromTexture(followerFbo.getTexture());
 
   // Setup shader
   #ifdef TARGET_OPENGLES 
@@ -42,10 +50,7 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-  ofBackground(12);
-
-  // Reset the styles so everything renders normally
-  ofSetColor(ofColor::white);
+  ofBackground(100);
   ofFill();
 
   // Enable additive blend mode (like photoshop linear dodge, overlayed colours add to eachother becoming more white)
@@ -58,12 +63,15 @@ void ofApp::draw(){
     wilkinson.drawFollowers();
   followerFbo.end();
 
+  // Reset the styles so plane renders normally
+  ofSetColor(ofColor::white);
+
   // Disable the add blend mode, we're just drawing regularly now
   ofEnableBlendMode(OF_BLENDMODE_DISABLED);
 
   // Foreground into shader background and draw in FBO
   backgroundShader.begin();
-    backgroundShader.setUniformTexture("tex0_in", followerFbo.getTexture(), 0);
+    backgroundShader.setUniformTexture("tex0", followerFbo.getTexture(), 0);
     backgroundShader.setUniform2f("resolution", outputWidth, outputHeight);
     backgroundShader.setUniform1f("threshold", 0.2f);
     backgroundShader.setUniform1f("i_time", ofGetElapsedTimef());
@@ -71,13 +79,20 @@ void ofApp::draw(){
     // Bind the wilkinson output frame so it can be outputted to the lighting display
     wilkinson.bindFrame();
       ofClear(0);
-
-      ofDrawRectangle(0, 0, 1024, 768);
-
+      plane.draw();
     wilkinson.unbindFrame();
   backgroundShader.end();
   
+  // draws debug gui
   wilkinson.draw(20, 20);
+
+  // Reset the styles so plane renders normally
+  ofSetColor(ofColor::white);
+  // draw follower FBO for debugging
+  followerFbo.draw(20, 250);
+
+  // draws output frame (for debugging)
+  wilkinson.drawOutputFrame(20 + outputWidth, 250);
 }
 
 void ofApp::exit(){

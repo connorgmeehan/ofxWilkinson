@@ -9,18 +9,25 @@
         },
         "general": {
             "draw_camera": "1",
-            "draw_roi": "1"
+            "draw_featuremanager": "1",
+            "draw_followers": "1",
+            "draw_gui": "1",
+            "draw_osc": "0",
+            "draw_pointwarper": "1",
+            "draw_roi": "1",
+            "draw_scenebuilder": "1",
+            "hide_all": "0"
         },
         "point_warper": {
-            "bottom_left": "0, 90",
-            "bottom_right": "160, 90",
+            "bottom_left": "0, 120",
+            "bottom_right": "160, 120",
             "top_left": "0, 0",
             "top_right": "160, 0"
         },
         "regions_of_interest": {
             "contour_area_max": "100",
             "contour_area_min": "1",
-            "learning_time": "300",
+            "learning_time": "90",
             "reset_background": "0",
             "threshold_blur": "32",
             "threshold_cutoff": "14.898",

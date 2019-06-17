@@ -26,7 +26,7 @@ void FeatureManager<UserFollower>::update(std::vector<cv::Point2f> & features) {
 template <class UserFollower>
 void FeatureManager<UserFollower>::draw(int width, int height) {
     ofPushMatrix();
-        ofTranslate(0, height);
+        ofTranslate(width, height);
         auto & followers = _tracker.getFollowers();
         for(auto & f : followers) {
             f.drawDebug();

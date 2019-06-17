@@ -103,7 +103,7 @@ void ofxWilkinson<UserFollower>::draw(int x, int y){
 
                 if(_drawRoi) { _roiFinder.drawThreshold(); }
                 if(_drawPointWarper) { _pointWarper.draw(); }
-                if(_drawFeatureManager) {_featureManager.draw(_cameraWidth, _cameraHeight); }
+                if(_drawFeatureManager) {_featureManager.draw(0, _cameraHeight); }
                 if(_drawFollowers) {
                     ofTranslate(_outputWidth, _cameraHeight);
                     for(auto & f : _featureManager.getFollowers()) {
