@@ -4,7 +4,6 @@
 #include "ofxCv.h"
 using namespace ofxCv;
 
-constexpr float DYING_TIME = 1.0f;
 constexpr int FOLLOWER_HISTORY = 3;
 
 class BaseFollower : public PointFollower {
@@ -14,10 +13,12 @@ class BaseFollower : public PointFollower {
 
         float startedDying;
 
+        static float _dyingTime;
         static float _predictionDistance;
         static float _predictionSmoothingAlpha;
         static float _positionSmoothingAlpha;
     public:
+        static void setDyingTime(float dyingTime);
         static void setPredictionDistance(float delta);
         static void setPredictionSmoothingAlpha(float alpha);
         static void setSmoothingAlpha(float alpha);
@@ -38,7 +39,7 @@ class BaseFollower : public PointFollower {
             float curTime = ofGetElapsedTimef();
             if(startedDying == 0) {
                 startedDying = curTime;
-            } else if(curTime - startedDying > DYING_TIME) {
+            } else if(curTime - startedDying > _dyingTime) {
                 this->PointFollower::kill();
             }
         }
