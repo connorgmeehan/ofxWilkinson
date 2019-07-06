@@ -5,7 +5,7 @@ bool RibbonFollower::_shouldMakeNewSegment;
 float RibbonFollower::_segmentGrowthScale = 1;
 float RibbonFollower::_segmentBaseSize = 5;
 int RibbonFollower::_segmentKillTrigger = 20;
-std::function<void()> RibbonFollower::_backgroundCallback;
+std::function<void(ofColor &)> RibbonFollower::_backgroundCallback;
 
 void RibbonFollower::_setup(const glm::vec2 & pos) {
   float hue = ofRandom(0, 255);
