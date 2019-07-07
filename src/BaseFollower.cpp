@@ -1,10 +1,15 @@
 
 #include "BaseFollower.h"
 
+float BaseFollower::_curTime = 0.0f;
 float BaseFollower::_dyingTime = 1.0f;
 float BaseFollower::_predictionDistance;
 float BaseFollower::_predictionSmoothingAlpha;
 float BaseFollower::_positionSmoothingAlpha;
+
+void BaseFollower::setCurTime(float curTime) {
+	_curTime = curTime;
+}
 
 void BaseFollower::setDyingTime(float dyingTime) {
 	_dyingTime = dyingTime;

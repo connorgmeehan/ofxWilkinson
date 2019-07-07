@@ -4,7 +4,6 @@
 bool RibbonFollower::_shouldMakeNewSegment;
 float RibbonFollower::_segmentGrowthScale = 1;
 float RibbonFollower::_segmentBaseSize = 5;
-int RibbonFollower::_segmentKillTrigger = 20;
 
 void RibbonFollower::_setup(const glm::vec2 & pos) {
   float hue = ofRandom(0, 255);
@@ -17,6 +16,16 @@ void RibbonFollower::_setup(const glm::vec2 & pos) {
 }
 
 void RibbonFollower::_update(const glm::vec2 & pos) {
+  float timeDying = _curTime - startedDying;
+  if(_isDying){
+    _alpha = 255 - (timeDying / _dyingTime * 255);
+    ofLog() << "RibbonFollower::_update() -> isDying: " << _isDying << "| _alpha: " << _alpha << "= 255 - (timeDying: " << timeDying << "/ _dyingTime: " << _dyingTime << " * 255) ";
+    if(timeDying > _dyingTime) {
+      this->PointFollower::kill();
+    }
+  }
+
+  
   if (_shouldMakeNewSegment) {
     _segments.push_back(pos);
   }
@@ -24,6 +33,7 @@ void RibbonFollower::_update(const glm::vec2 & pos) {
 
 void RibbonFollower::_draw() {
   ofSetColor(_color, _alpha);
+  ofLog() << "RibbonFollower::_draw() -> setcolor: " << ofGetStyle().color << "| myalpha: " << _alpha << "| ";
   ofDrawCircle(smoothed, 3);
 
   float radius = (float) _segments.size() * _segmentGrowthScale;
@@ -38,7 +48,7 @@ ofColor & RibbonFollower::getColor() {
 }
 
 bool RibbonFollower::envelopedBy(ofRectangle & rect) {
-  if(_segments.size() > 0) {
+  if(_segments.size() > 0 && !_isDying) {
     glm::vec2 & p = _segments[0];
 
     float radius = (float) _segments.size() * _segmentGrowthScale;
@@ -48,6 +58,8 @@ bool RibbonFollower::envelopedBy(ofRectangle & rect) {
       firstRect.getY() < rect.getY() &&
       firstRect.getWidth() > rect.getWidth() &&
       firstRect.getHeight() > rect.getHeight()) {
+        ofLog() << "RibbonFollower::envelopedBy() -> rect is enveloped firstRect:[" << firstRect.getX() << ", " << firstRect.getY() << ", " << firstRect.getWidth() << ", " << firstRect.getHeight() << "]";
+        ofLog() << "RibbonFollower::envelopedBy() -> rect:[" << rect.getX() << ", " << rect.getY() << ", " << rect.getWidth() << ", " << rect.getHeight() << "]";
       return true;
     }
   }
@@ -67,13 +79,13 @@ void RibbonFollower::setSegmentBaseSize(float segmentBaseSize) {
 }
 
 void RibbonFollower::_kill() {
-  float curTime = ofGetElapsedTimef();
   if (startedDying == 0) {
-    startedDying = curTime;
+    _isDying = true;
+    startedDying = _curTime;
   }
-  _alpha = 255 - ((curTime - startedDying) / _dyingTime * 255);
 
-  if(curTime - startedDying > _dyingTime) {
+  float timeDying = _curTime - startedDying;
+  if(_isDying && timeDying > _dyingTime) {
     this->PointFollower::kill();
   }
 }

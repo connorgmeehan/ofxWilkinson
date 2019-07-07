@@ -18,6 +18,7 @@ void FeatureManager<UserFollower>::setup() {
 template <class UserFollower>
 void FeatureManager<UserFollower>::update(std::vector<cv::Point2f> & features) {
 
+    UserFollower::setCurTime(ofGetElapsedTimef());
     scaleFeaturestoOutput(features);
 
     _tracker.track(features);

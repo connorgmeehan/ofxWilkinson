@@ -71,10 +71,14 @@ void ofApp::draw(){
   ofSetColor(ofColor::white);  
   ofFill();
 
+  ofEnableAlphaBlending();
+
   followerFbo.begin();
     ofClear(0);
     wilkinson.drawFollowers();
   followerFbo.end();
+
+  ofDisableAlphaBlending();
 
   ofSetColor(ofColor::white);
 

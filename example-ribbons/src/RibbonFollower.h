@@ -15,12 +15,10 @@ class RibbonFollower : public BaseFollower {
         static void setShouldMakeNewSegment(bool shouldMakeNewSegment);
         static void setSegmentGrowthScale(float segmentGrowthScale);
         static void setSegmentBaseSize(float segmentBaseSize);
-        static void setSegmentKillTrigger(int segmentKillTrigger);
     private:
         static bool _shouldMakeNewSegment;
         static float _segmentGrowthScale;
         static float _segmentBaseSize;
-        static int _segmentKillTrigger;
         static std::function<void(ofColor&)> _backgroundCallback;
 
         ofColor _color;
