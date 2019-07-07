@@ -91,5 +91,5 @@ void main() {
     );
 
     vec4 metaball_frag = texture2DRect(tex0, gl_FragCoord.xy);
-    outputColor = mix(bg_color, noise_frag, bg_strength);
+    outputColor = vec4(mix(bg_color.rgb, noise_frag.rgb, bg_strength), 1.0);
 }

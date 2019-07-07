@@ -51,7 +51,7 @@ void ofApp::update(){
 
     for(auto & f : followers) {
       if(f.envelopedBy(borderRect)){
-          bgColor = f.getColor();
+          bgColor = ofFloatColor(f.getColor());
           timeOfLastBackgroundReset = ofGetElapsedTimef();
           f._kill();
       }
@@ -61,8 +61,6 @@ void ofApp::update(){
   }
 
   wilkinson.update();
-
-
   
   RibbonFollower::setShouldMakeNewSegment(false);
 }

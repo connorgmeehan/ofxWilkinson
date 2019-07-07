@@ -42,7 +42,7 @@ class ofApp : public ofBaseApp{
 		float bgFadeTime = 10.0f; // in seconds
 		float timeOfLastBackgroundReset = 0;
 
-		ofColor bgColor = ofColor::white;
+		ofFloatColor bgColor = ofColor::white;
 		
 		void exit();
 };
