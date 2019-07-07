@@ -5,7 +5,6 @@ bool RibbonFollower::_shouldMakeNewSegment;
 float RibbonFollower::_segmentGrowthScale = 1;
 float RibbonFollower::_segmentBaseSize = 5;
 int RibbonFollower::_segmentKillTrigger = 20;
-std::function<void(ofColor &)> RibbonFollower::_backgroundCallback;
 
 void RibbonFollower::_setup(const glm::vec2 & pos) {
   float hue = ofRandom(0, 255);
@@ -14,22 +13,17 @@ void RibbonFollower::_setup(const glm::vec2 & pos) {
   HsvColor hsvColor = {hue, 255, 255};
   RgbColor rgbColor = HsvToRgb(hsvColor);
 
-  _color = ofColor(rgbColor.r, rgbColor.g, rgbColor.b, 1.0f);
+  _color = ofColor(+rgbColor.r, +rgbColor.g, +rgbColor.b, 255);
 }
 
 void RibbonFollower::_update(const glm::vec2 & pos) {
   if (_shouldMakeNewSegment) {
     _segments.push_back(pos);
   }
-
-  if(_segments.size() > _segmentKillTrigger) {
-    _kill();
-    _backgroundCallback(_color);
-  }
 }
 
 void RibbonFollower::_draw() {
-  ofSetColor(_color.r, color.g, color.b, _alpha);
+  ofSetColor(_color, _alpha);
   ofDrawCircle(smoothed, 3);
 
   float radius = (float) _segments.size() * _segmentGrowthScale;
@@ -37,6 +31,22 @@ void RibbonFollower::_draw() {
     radius -= _segmentGrowthScale;
     ofDrawRectangle(p.x - radius, p.y - radius, radius * 2, radius * 2);
   }
+}
+
+ofColor & RibbonFollower::getColor() {
+  return _color;
+}
+
+bool RibbonFollower::outside(ofRectangle & rect) {
+  if(_segments.size() > 0) {
+    glm::vec2 & p = _segments[0];
+
+    float radius = (float) _segments.size() * _segmentGrowthScale;
+    if(!ofRectangle(p.x - radius, p.y - radius, radius * 2, radius * 2).inside(rect)) {
+      return true;
+    }
+  }
+  return false;
 }
 
 void RibbonFollower::setShouldMakeNewSegment(bool shouldMakeNewSegment) {
@@ -50,10 +60,6 @@ void RibbonFollower::setSegmentGrowthScale(float segmentGrowthScale) {
 void RibbonFollower::setSegmentBaseSize(float segmentBaseSize) {
   _segmentBaseSize = segmentBaseSize;
 }
-
-void RibbonFollower::setBackroundCallback(std::function<void(ofColor&)> backgroundCallback) {
-  _backgroundCallback = backgroundCallback;
-} 
 
 void RibbonFollower::_kill() {
   float curTime = ofGetElapsedTimef();

@@ -31,10 +31,16 @@ class ofApp : public ofBaseApp{
 		int strandLength = 50;
 		
 		// application variables
-
+		ofPlanePrimitive plane;
+		ofShader backgroundShader;
+		ofFbo followerFbo;
+		
 		float curTime = 0.0f;
 		float triggerTime = 0.0f;
 		float triggerInterval = 0.1f;
+		float bgStrength = 0;
+		float bgFadeTime = 10.0f; // in seconds
+		float timeOfLastBackgroundReset = 0;
 
 		ofColor bgColor = ofColor::white;
 		
