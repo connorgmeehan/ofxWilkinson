@@ -19,7 +19,6 @@ void RibbonFollower::_update(const glm::vec2 & pos) {
   float timeDying = _curTime - startedDying;
   if(_isDying){
     _alpha = 255 - (timeDying / _dyingTime * 255);
-    ofLog() << "RibbonFollower::_update() -> isDying: " << _isDying << "| _alpha: " << _alpha << "= 255 - (timeDying: " << timeDying << "/ _dyingTime: " << _dyingTime << " * 255) ";
     if(timeDying > _dyingTime) {
       this->PointFollower::kill();
     }
@@ -33,7 +32,6 @@ void RibbonFollower::_update(const glm::vec2 & pos) {
 
 void RibbonFollower::_draw() {
   ofSetColor(_color, _alpha);
-  ofLog() << "RibbonFollower::_draw() -> setcolor: " << ofGetStyle().color << "| myalpha: " << _alpha << "| ";
   ofDrawCircle(smoothed, 3);
 
   float radius = (float) _segments.size() * _segmentGrowthScale;
