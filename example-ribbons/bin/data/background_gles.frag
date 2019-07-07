@@ -51,6 +51,7 @@ void main() {
         Perlin2D(vec2(uv.x - i_time, uv.y)),
         1
     );
-
-    gl_FragColor = mix(noise_frag, bg_color, bg_strength);
+    vec3 bg_frag = mix(bg_color.rgb, noise_frag.rgb, bg_strength);
+    float psuedoAlpha = clamp(metaball_frag.r + metaball_frag.g + metaball_frag.g, 0.0, 1.0);
+    gl_FragColor = vec4(mix(bg_frag.rgb, metaball_frag.rgb, psuedoAlpha), 1.0);
 }

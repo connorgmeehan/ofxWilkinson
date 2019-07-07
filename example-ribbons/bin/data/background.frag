@@ -91,5 +91,7 @@ void main() {
     );
 
     vec4 metaball_frag = texture2DRect(tex0, gl_FragCoord.xy);
-    outputColor = vec4(mix(bg_color.rgb, noise_frag.rgb, bg_strength), 1.0);
+    vec3 bg_frag = mix(bg_color.rgb, noise_frag.rgb, bg_strength);
+    float psuedoAlpha = clamp(metaball_frag.r + metaball_frag.g + metaball_frag.g, 0.0, 1.0);
+    outputColor = vec4(mix(bg_frag.rgb, metaball_frag.rgb, psuedoAlpha), 1.0);
 }

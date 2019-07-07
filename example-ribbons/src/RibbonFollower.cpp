@@ -18,6 +18,7 @@ void RibbonFollower::_setup(const glm::vec2 & pos) {
 void RibbonFollower::_update(const glm::vec2 & pos) {
   float timeDying = _curTime - startedDying;
   if(_isDying){
+      // ofLog() << "RibbonFollower::_update() -> isDying: " << _isDying << "| _alpha: " << _alpha << "= 255 - (timeDying: " << timeDying << "/ _dyingTime: " << _dyingTime << " * 255) ";
     _alpha = 255 - (timeDying / _dyingTime * 255);
     if(timeDying > _dyingTime) {
       this->PointFollower::kill();
@@ -56,8 +57,6 @@ bool RibbonFollower::envelopedBy(ofRectangle & rect) {
       firstRect.getY() < rect.getY() &&
       firstRect.getWidth() > rect.getWidth() &&
       firstRect.getHeight() > rect.getHeight()) {
-        ofLog() << "RibbonFollower::envelopedBy() -> rect is enveloped firstRect:[" << firstRect.getX() << ", " << firstRect.getY() << ", " << firstRect.getWidth() << ", " << firstRect.getHeight() << "]";
-        ofLog() << "RibbonFollower::envelopedBy() -> rect:[" << rect.getX() << ", " << rect.getY() << ", " << rect.getWidth() << ", " << rect.getHeight() << "]";
       return true;
     }
   }
@@ -77,12 +76,13 @@ void RibbonFollower::setSegmentBaseSize(float segmentBaseSize) {
 }
 
 void RibbonFollower::_kill() {
-  if (startedDying == 0) {
+  if (_isDying == false) {
     _isDying = true;
     startedDying = _curTime;
   }
 
   float timeDying = _curTime - startedDying;
+    _alpha = 255 - (timeDying / _dyingTime * 255);
   if(_isDying && timeDying > _dyingTime) {
     this->PointFollower::kill();
   }
