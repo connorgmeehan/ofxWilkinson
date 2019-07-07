@@ -47,10 +47,10 @@ void ofApp::update(){
 
     auto & followers = wilkinson.getFollowers();
 
-    ofRectangle borderRect = ofRectangle(0, 0, outputWidth * 2, outputHeight * 2);
+    ofRectangle borderRect = ofRectangle(0, 0, outputWidth/2, outputHeight/2);
 
     for(auto & f : followers) {
-      if(f.outside(borderRect)){
+      if(f.envelopedBy(borderRect)){
           bgColor = f.getColor();
           timeOfLastBackgroundReset = ofGetElapsedTimef();
           f._kill();

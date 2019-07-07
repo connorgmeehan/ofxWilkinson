@@ -9,7 +9,7 @@ class RibbonFollower : public BaseFollower {
         void _draw();
         void _kill();
 
-        bool outside(ofRectangle & rect);
+        bool envelopedBy(ofRectangle & rect);
         ofColor & getColor();
         static void setColorRange(float min, float max, bool inclusive);
         static void setShouldMakeNewSegment(bool shouldMakeNewSegment);

@@ -37,12 +37,17 @@ ofColor & RibbonFollower::getColor() {
   return _color;
 }
 
-bool RibbonFollower::outside(ofRectangle & rect) {
+bool RibbonFollower::envelopedBy(ofRectangle & rect) {
   if(_segments.size() > 0) {
     glm::vec2 & p = _segments[0];
 
     float radius = (float) _segments.size() * _segmentGrowthScale;
-    if(!ofRectangle(p.x - radius, p.y - radius, radius * 2, radius * 2).inside(rect)) {
+    ofRectangle firstRect = ofRectangle(p.x - radius, p.y - radius, radius, radius);
+    if(
+      firstRect.getX() < rect.getX() &&
+      firstRect.getY() < rect.getY() &&
+      firstRect.getWidth() > rect.getWidth() &&
+      firstRect.getHeight() > rect.getHeight()) {
       return true;
     }
   }
