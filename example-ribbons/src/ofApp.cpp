@@ -39,27 +39,35 @@ void ofApp::setup(){
 }
 //--------------------------------------------------------------
 void ofApp::update(){
-  // If it's time for followers to make a new segment, set flag to true
+  // If it's time for followers to make a new segment
   curTime = ofGetElapsedTimef();
   if(curTime > triggerTime) {
     triggerTime += triggerInterval;
-    RibbonFollower::setShouldMakeNewSegment(true);
-
     auto & followers = wilkinson.getFollowers();
 
+    // first run update segments on all followers
+    for (auto & follower : followers) {
+      follower._updateSegments();
+    }
+
+    // Build a rectangle of the perimetre of scene to check if a follower has gone outside of it
     ofRectangle borderRect = ofRectangle(0, 0, outputWidth/2, outputHeight/2);
 
     for(auto & f : followers) {
+      // For each follower check if it's enveloping (completely outside of) the scene
       if(f.envelopedBy(borderRect)){
+
+          // if so, update the background color to match the follower color and start killing the follower.
           bgColor = ofFloatColor(f.getColor());
           timeOfLastBackgroundReset = ofGetElapsedTimef();
           f._kill();
       }
     }
-    float timeSinceLastBgReset = ofGetElapsedTimef() - timeOfLastBackgroundReset; 
-    bgStrength = ofClamp(timeSinceLastBgReset, 0, bgFadeTime) / bgFadeTime;
+    
+    timeOfLastBackgroundReset = ofGetElapsedTimef(); 
   }
 
+  bgStrength = ofClamp((ofGetElapsedTimef() - timeOfLastBackgroundReset) / bgFadeTime, 0, 1.0f);
   wilkinson.update();
   
   RibbonFollower::setShouldMakeNewSegment(false);
