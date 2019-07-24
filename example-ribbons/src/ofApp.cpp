@@ -40,8 +40,7 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
   // If it's time for followers to make a new segment
-  curTime = ofGetElapsedTimef();
-  if(curTime > triggerTime) {
+  if(ofGetElapsedTimef() > triggerTime) {
     triggerTime += triggerInterval;
     auto & followers = wilkinson.getFollowers();
 
@@ -64,7 +63,7 @@ void ofApp::update(){
       }
     }
     
-    timeOfLastBackgroundReset = ofGetElapsedTimef(); 
+    triggerTime = curTime += triggerInterval;
   }
 
   bgStrength = ofClamp((ofGetElapsedTimef() - timeOfLastBackgroundReset) / bgFadeTime, 0, 1.0f);
