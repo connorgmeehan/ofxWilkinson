@@ -92,7 +92,7 @@ PROJECT_LDFLAGS=-Wl,-rpath=./libs,-pthread -I/usr/local/include -L/usr/local/lib
 #
 #   Note: Leave a leading space when adding list items with the += operator
 ################################################################################
-PROJECT_DEFINES = OLA_INSTALLED 
+# PROJECT_DEFINES = 
 
 ################################################################################
 # PROJECT CFLAGS
@@ -109,7 +109,7 @@ PROJECT_DEFINES = OLA_INSTALLED
 #
 #   Note: Leave a leading space when adding list items with the += operator
 ################################################################################
-PROJECT_CFLAGS = -w -O2
+PROJECT_CFLAGS = -w
 
 ################################################################################
 # PROJECT OPTIMIZATION CFLAGS

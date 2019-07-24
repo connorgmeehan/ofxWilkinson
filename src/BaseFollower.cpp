@@ -1,9 +1,19 @@
 
 #include "BaseFollower.h"
 
+float BaseFollower::_curTime = 0.0f;
+float BaseFollower::_dyingTime = 1.0f;
 float BaseFollower::_predictionDistance;
 float BaseFollower::_predictionSmoothingAlpha;
 float BaseFollower::_positionSmoothingAlpha;
+
+void BaseFollower::setCurTime(float curTime) {
+	_curTime = curTime;
+}
+
+void BaseFollower::setDyingTime(float dyingTime) {
+	_dyingTime = dyingTime;
+}
 
 void BaseFollower::setPredictionDistance(float delta) {
 	_predictionDistance = delta;
@@ -50,7 +60,7 @@ void BaseFollower::drawDebug() {
 		ofSetColor(255);
 		if(startedDying) {
 			ofSetColor(ofColor::red);
-			size = ofMap(ofGetElapsedTimef() - startedDying, 0, DYING_TIME, size, 0, true);
+			size = ofMap(ofGetElapsedTimef() - startedDying, 0, _dyingTime, size, 0, true);
 		}
 		ofNoFill();
 		// ofDrawCircle(cur, 1);

@@ -4,7 +4,6 @@
 #include "ofxCv.h"
 using namespace ofxCv;
 
-constexpr float DYING_TIME = 1.0f;
 constexpr int FOLLOWER_HISTORY = 3;
 
 class BaseFollower : public PointFollower {
@@ -12,12 +11,17 @@ class BaseFollower : public PointFollower {
         ofColor color;
         glm::vec2 cur, smoothed, lastSmoothed, velocity, pos;
 
+        bool _isDying = false;
         float startedDying;
 
+        static float _curTime;
+        static float _dyingTime;
         static float _predictionDistance;
         static float _predictionSmoothingAlpha;
         static float _positionSmoothingAlpha;
     public:
+        static void setCurTime(float curTime);
+        static void setDyingTime(float dyingTime);
         static void setPredictionDistance(float delta);
         static void setPredictionSmoothingAlpha(float alpha);
         static void setSmoothingAlpha(float alpha);
@@ -37,8 +41,9 @@ class BaseFollower : public PointFollower {
         virtual void _kill() {
             float curTime = ofGetElapsedTimef();
             if(startedDying == 0) {
+                _isDying = true;
                 startedDying = curTime;
-            } else if(curTime - startedDying > DYING_TIME) {
+            } else if(curTime - startedDying > _dyingTime) {
                 this->PointFollower::kill();
             }
         }
