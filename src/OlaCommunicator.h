@@ -32,10 +32,11 @@ class OlaCommunicator {
         }
 
         void setup(int width, int height, int strandCount, int strandLength) {
-            _fboStep = width / strandLength;
+            ofLog() << "OlaCommunicator::setup(width: " << width << ", height: " << height << ", strandCount: " << strandCount << ", strandLength: " << strandLength << ");";
+            _fboStep = width / strandCount;
             _dataLength = strandLength * 3;
             _dmxBuffers.resize(strandCount);
-
+            ofLog() << "OlaCommunicator::setup()...\tfboStep: " << _fboStep << ", dataLength: " << _dataLength;
             for(auto & dmxbuffer : _dmxBuffers){
                 dmxbuffer.Blackout();
             }
@@ -48,7 +49,7 @@ class OlaCommunicator {
             ola::client::SendDMXArgs dmxArgs = ola::client::SendDMXArgs();
             for(int i = 0; i < _dmxBuffers.size(); i++){
                 _dmxBuffers[i].Set( &frame.getPixels()[_dataLength*i*_fboStep], (unsigned int) _dataLength );
-                _olaWrapper.GetClient()->SendDMX(i, _dmxBuffers.at(i), dmxArgs);
+                _olaWrapper.GetClient()->SendDMX(i+1, _dmxBuffers.at(i), dmxArgs);
             }
         }
 };

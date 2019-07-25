@@ -141,6 +141,7 @@ void ofxWilkinson<UserFollower>::setCameraDimensions(int width, int height){
 template <class UserFollower>
 void ofxWilkinson<UserFollower>::setLightingArrayDimensions(int count, int length){
     if(_outputWidth != 0 || _outputHeight != 0) {
+        // We need to switch the width and height so we can send the information along the width
         _sceneBuilder.setup(_outputWidth, _outputHeight, count, length);
     } else {
         ofLog() << "ofxWilkinson::setLightingArrayDimensions() -> you must run setOutputDimensions before running setLightingArrayDimensions";
