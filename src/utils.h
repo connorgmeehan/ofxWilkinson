@@ -22,4 +22,6 @@ namespace cv {
     std::string type2str(int type);
 };
 
+int checkPowerofTwo(int x);
+
 #endif

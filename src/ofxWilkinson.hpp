@@ -1,4 +1,5 @@
 #include "ofxWilkinson.h"
+#include "utils.h"
 
 template <class UserFollower>
 ofxWilkinson<UserFollower>::ofxWilkinson() :
@@ -141,7 +142,18 @@ void ofxWilkinson<UserFollower>::setCameraDimensions(int width, int height){
 template <class UserFollower>
 void ofxWilkinson<UserFollower>::setLightingArrayDimensions(int count, int length){
     if(_outputWidth != 0 || _outputHeight != 0) {
-        _sceneBuilder.setup(_outputWidth, _outputHeight, count, length);
+        
+        // if one dimension not a power of 2, use the other dimension
+        int bufferWidth = checkPowerofTwo(_outputWidth) ? _outputWidth : _outputHeight;
+        int bufferHeight = checkPowerofTwo(_outputHeight) ? _outputHeight : _outputHeight;
+
+        // if one isn't power's of 2, error
+        if(!checkPowerofTwo(bufferWidth) || !checkPowerofTwo(bufferHeight)) {
+            ofLog(OF_LOG_ERROR) << "ofxWilkinson::setLightingArrayDimensions -> one of the output dimensions (width: " << _outputWidth << " , height: " << _outputHeight << ") is not a power of 2";
+            ofExit(1);
+        }
+
+        _sceneBuilder.setup(bufferWidth, bufferHeight, count, length);
     } else {
         ofLog() << "ofxWilkinson::setLightingArrayDimensions() -> you must run setOutputDimensions before running setLightingArrayDimensions";
         ofExit();
