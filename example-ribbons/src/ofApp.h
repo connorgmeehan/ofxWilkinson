@@ -23,9 +23,8 @@ class ofApp : public ofBaseApp{
 		int inputWidth = 160;
 		int inputHeight = 120;
 
-		int outputWidth = 64;
-		int outputHeight = 50;
-		int outputFboWidth, outputFboHeight;
+		int outputWidth = 50;
+		int outputHeight = 64;
 
 		int strandCount = 15;
 		int strandLength = 50;
